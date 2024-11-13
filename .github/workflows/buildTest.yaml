@@ -1,14 +1,14 @@
 # This is a basic workflow to help you get started with Actions
 
-name: Plugin CI
+name: Plugin Build CI
 
 # Controls when the workflow will run
 on:
   # Triggers the workflow on push or pull request events but only for the "master" branch
   push:
     branches: [ "master" ]
-  pull_request:
-    branches: [ "master" ]
+  # pull_request:
+  #   branches: [ "master" ]
 
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
@@ -29,10 +29,15 @@ jobs:
       - name: Setup Java environment. 
         uses: gradle/actions/setup-gradle@v3
       # Build gradle. 
+      - name: Make gradle executable. 
+        run: chmod +x ./gradlew   # That's not good. 
       - name: Build gradle. 
-        run: |
-          chmod +x ./gradlew
-          ./gradlew build
+        run: ./gradlew build
       # Build Plugin.
       - name: Build JAR package.
         run: ./gradlew buildPlugin
+      - name: Upload JAR package. 
+        uses: actions/upload-artifact@v4
+        with: 
+          name: Elysia-Plugin
+          path: ./build/mirai/Elysia-*.*.*.mirai2.jar
