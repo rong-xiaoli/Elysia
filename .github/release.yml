@@ -1,0 +1,26 @@
+changelog:
+  exclude:
+    labels:
+      - ignore-for-release-notes
+      - invalid
+      - duplicate
+      - good first issue
+      - help wanted
+      - question
+      - wontfix
+  categories:
+    - title: Vulnerability fixed | 已修复的安全漏洞 ❗
+      labels:
+        - code/vulnerability
+    - title: New Features | 新功能 🎉
+      labels:
+        - code/features
+    - title: Fixed Bugs | 已修复的错误 👾
+      labels:
+        - code/bug
+    - title: Enhancement | 增强 🦾
+      labels:
+        - code/enhancement
+    - title: Others | 其它
+      labels:
+        - "*"
