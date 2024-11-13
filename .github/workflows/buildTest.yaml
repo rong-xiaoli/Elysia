@@ -1,6 +1,6 @@
 # This is a basic workflow to help you get started with Actions
 
-name: CI
+name: Plugin CI
 
 # Controls when the workflow will run
 on:
@@ -28,11 +28,11 @@ jobs:
       # Setup Java environment. 
       - name: Setup Java environment. 
         uses: gradle/actions/setup-gradle@v3
-      - name: Setup Gradle
-        uses: gradle/actions/setup-gradle@af1da67850ed9a4cedd57bfd976089dd991e2582
       # Build gradle. 
       - name: Build gradle. 
-        run: ./gradlew build
+        run: |
+          chmod +x ./gradlew
+          ./gradlew build
       # Build Plugin.
       - name: Build JAR package.
         run: ./gradlew buildPlugin
