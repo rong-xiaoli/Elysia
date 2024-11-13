@@ -24,13 +24,13 @@ jobs:
     steps:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - name: Check out. 
-      - uses: actions/checkout@v4
+        uses: actions/checkout@v4
       # Setup Java environment. 
       - name: Setup Java environment. 
-      - uses: gradle/actions/setup-gradle@v3
+        uses: gradle/actions/setup-gradle@v3
       # Build gradle. 
       - name: Build gradle. 
-      - run: ./gradlew build
-        # Build Plugin.
+        run: ./gradlew build
+      # Build Plugin.
       - name: Build JAR package.
-      - run: ./gradlew buildPlugin
+        run: ./gradlew buildPlugin
