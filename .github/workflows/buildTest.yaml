@@ -50,3 +50,4 @@ jobs:
         with:
           files: ./build/mirai/Elysia-*.*.*.mirai2.jar
           draft: true
+          token: ${{ secrets.TOKEN }}
