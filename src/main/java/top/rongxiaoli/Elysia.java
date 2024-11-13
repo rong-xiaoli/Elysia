@@ -14,7 +14,7 @@ public final class Elysia extends JavaPlugin {
     private Elysia() {
         super(new JvmPluginDescriptionBuilder("top.rongxiaoli.elysia", "0.0.0")
                 .name("Elysia")
-                .info("REBORN")
+                .info("REBORN, even better. ")
                 .author("rong-xiaoli")
                 .build());
     }
@@ -24,6 +24,8 @@ public final class Elysia extends JavaPlugin {
         getLogger().verbose("Plugin loading, packaged logger initialization started.");
         logger = new ElysiaLogger();
         ElysiaLogger.setLogger(getLogger());
+        logger.verbose("Elysia.onEnable", "Logger initialization complete. ");
+        LOADER.load();
         logger.verbose("Elysia.onEnable", "Initialization complete. ");
     }
 }

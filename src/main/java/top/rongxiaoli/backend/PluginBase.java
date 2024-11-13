@@ -2,6 +2,13 @@ package top.rongxiaoli.backend;
 
 public interface PluginBase {
     PluginBase INSTANCE = null;
+    PluginConfigBase CONFIG_BASE = null;
+    PluginDataBase DATA_BASE = null;
+
+    /**
+     * Load method. First time loading.
+     */
+    void load();
 
     /**
      * Reload method. Usually for resetting state.
