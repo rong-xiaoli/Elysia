@@ -1,6 +1,7 @@
 package top.rongxiaoli.backend;
 
 import net.mamoe.mirai.console.command.CommandManager;
+import top.rongxiaoli.Elysia;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;
 
 import java.util.concurrent.CopyOnWriteArrayList;
@@ -24,6 +25,7 @@ public class PluginLoader {
                 PluginList) {
             e.load();
         }
+        registerCommand();
     }
 
 
@@ -42,5 +44,9 @@ public class PluginLoader {
     }
     private void addPlugins() {
         PluginList.add(PicturesPlugin.INSTANCE);
+    }
+    private void registerCommand() {
+        this.INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
+        Elysia.logger.debug("PluginLoader.addPlugins", "Added PicturesPlugin. ");
     }
 }
