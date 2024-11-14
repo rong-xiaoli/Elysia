@@ -38,7 +38,21 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void onCommand(@NotNull CommandContext context, @NotNull MessageChain args) {
-        logger.verbose(NAME, "Command invoked by " + context.getSender().getUser() + ", on context: " + context.getSender().getSubject().getId());
+        long userID = 0, subjectID = 0;
+        // From console:
+        try {
+            userID = Objects.requireNonNull(context.getSender().getUser()).getId();
+            subjectID = Objects.requireNonNull(context.getSender().getSubject()).getId();
+        } catch (NullPointerException e) {
+            logger.warn(NAME, "This command cannot be invoked from console! ");
+        }
+        if (userID == 0 || subjectID == 0) {
+            logger.warn(NAME, "This command cannot be invoked from console! ");
+            return;
+        }
+        // From user:
+        logger.verbose(NAME, "Command invoked by " + context.getSender().getUser().getId() + ", on context: " + (context.getSender().getSubject() == null ? " " : context.getSender().getSubject().getId()));
+        // Todo: Implementation.
     }
 
     /**

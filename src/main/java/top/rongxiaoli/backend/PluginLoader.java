@@ -1,5 +1,6 @@
 package top.rongxiaoli.backend;
 
+import net.mamoe.mirai.console.command.Command;
 import net.mamoe.mirai.console.command.CommandManager;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;
@@ -50,6 +51,8 @@ public class PluginLoader {
     }
     private void addPlugins() {
         PluginList.add(PicturesPlugin.INSTANCE);
+        INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
         PluginList.add(Ping.INSTANCE);
+        INSTANCE.registerCommand(Ping.INSTANCE, false);
     }
 }

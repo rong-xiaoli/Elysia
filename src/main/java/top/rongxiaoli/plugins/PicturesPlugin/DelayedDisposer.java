@@ -73,4 +73,5 @@ public class DelayedDisposer {
         }
         public Object getObj() {return obj;}
     }
+    // Todo: Implement the moving out part.
 }
