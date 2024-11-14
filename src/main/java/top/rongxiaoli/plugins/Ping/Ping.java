@@ -1,19 +1,28 @@
 package top.rongxiaoli.plugins.Ping;
 
 import net.mamoe.mirai.console.command.CommandContext;
-import net.mamoe.mirai.console.command.java.JRawCommand;
-import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.console.command.CommandOwner;
+import net.mamoe.mirai.console.command.java.JSimpleCommand;
 import org.jetbrains.annotations.NotNull;
+import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase;
+import top.rongxiaoli.log.ElysiaLogger;
 
-public class Ping extends JRawCommand implements PluginBase {
-    /**
-     * @param context
-     * @param args
-     */
-    @Override
-    public void onCommand(@NotNull CommandContext context, @NotNull MessageChain args) {
+public class Ping extends JSimpleCommand implements PluginBase {
+    private final ElysiaLogger logger;
+    public static final Ping INSTANCE = new Ping();
+    private static final String NAME = "Ping";
+    public Ping() {
+        super(Elysia.INSTANCE, "ping");
+        logger = new ElysiaLogger();
+    }
 
+    @Handler
+    public void run(CommandContext context) {
+        if (!Elysia.PluginRunning) {
+            return;
+        }
+        context.getSender().sendMessage("Pong! ");
     }
 
     /**
@@ -21,7 +30,7 @@ public class Ping extends JRawCommand implements PluginBase {
      */
     @Override
     public void load() {
-
+        logger.debug(NAME, "Command loaded. ");
     }
 
     /**
@@ -29,7 +38,7 @@ public class Ping extends JRawCommand implements PluginBase {
      */
     @Override
     public void reload() {
-
+        logger.debug(NAME, "Reload complete. ");
     }
 
     /**
@@ -37,7 +46,7 @@ public class Ping extends JRawCommand implements PluginBase {
      */
     @Override
     public void shutdown() {
-
+        logger.debug(NAME, "shutdown() invoked. Nothing special, pass. ");
     }
 
     /**
@@ -45,7 +54,7 @@ public class Ping extends JRawCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-
+        logger.debug(NAME, "Nothing to store. ");
     }
 
     /**
@@ -53,6 +62,6 @@ public class Ping extends JRawCommand implements PluginBase {
      */
     @Override
     public void reloadData() {
-
+        logger.debug(NAME, "Nothing to load. ");
     }
 }
