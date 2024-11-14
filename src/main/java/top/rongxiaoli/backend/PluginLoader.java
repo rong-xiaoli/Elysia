@@ -3,6 +3,7 @@ package top.rongxiaoli.backend;
 import net.mamoe.mirai.console.command.CommandManager;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;
+import top.rongxiaoli.plugins.Ping.Ping;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -48,5 +49,7 @@ public class PluginLoader {
     private void registerCommand() {
         this.INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
         Elysia.logger.debug("PluginLoader.addPlugins", "Added PicturesPlugin. ");
+        this.INSTANCE.registerCommand(Ping.INSTANCE, false);
+        Elysia.logger.debug("PluginLoader.addPlugins", "Added Ping. ");
     }
 }

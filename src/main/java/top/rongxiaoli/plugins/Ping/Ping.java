@@ -9,9 +9,10 @@ import top.rongxiaoli.backend.PluginBase;
 import top.rongxiaoli.log.ElysiaLogger;
 
 public class Ping extends JSimpleCommand implements PluginBase {
-    private ElysiaLogger logger;
+    private final ElysiaLogger logger;
+    public static final Ping INSTANCE = new Ping();
     private static final String NAME = "Ping";
-    public Ping(@NotNull CommandOwner owner, @NotNull String primaryName, @NotNull String... secondaryNames) {
+    public Ping() {
         super(Elysia.INSTANCE, "ping");
         logger = new ElysiaLogger();
     }

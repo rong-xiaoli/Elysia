@@ -10,6 +10,15 @@
 
 ---
 
+使用建议
+---
+由于本人写的代码过于狗屎，建议添加以下插件，以简洁且方便地运行本插件：
+
+[LuckPerms权限管理](https://github.com/Karlatemp/LuckPerms-Mirai)
+
+[chat-command聊天触发命令](https://github.com/project-mirai/chat-command)
+
+
 - [ ] 自动加入
 - [ ] 机器人管理命令
 - [ ] 广播
@@ -22,5 +31,4 @@
 - [ ] 今日运势
 - [ ] 抽奖
 - [ ] 财富榜
-
 

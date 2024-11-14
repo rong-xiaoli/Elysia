@@ -31,6 +31,7 @@ public final class Elysia extends JavaPlugin {
         ElysiaLogger.setLogger(getLogger());
         logger.verbose("Elysia.onEnable", "Logger initialization complete. ");
         LOADER.load();
+        logger.verbose("Elysia.onEnable", "Plugin load complete. ");
         logger.verbose("Elysia.onEnable", "Initialization complete. ");
         Elysia.PluginRunning = true;
     }
