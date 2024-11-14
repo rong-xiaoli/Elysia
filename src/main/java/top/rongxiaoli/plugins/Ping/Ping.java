@@ -1,9 +1,7 @@
 package top.rongxiaoli.plugins.Ping;
 
 import net.mamoe.mirai.console.command.CommandContext;
-import net.mamoe.mirai.console.command.CommandOwner;
 import net.mamoe.mirai.console.command.java.JSimpleCommand;
-import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase;
 import top.rongxiaoli.log.ElysiaLogger;
@@ -29,8 +27,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      * Load method. First time loading.
      */
     @Override
-    public void load() {
-        logger.debug(NAME, "Command loaded. ");
+    public void load() {logger.debug(NAME, "Command loaded. ");
     }
 
     /**

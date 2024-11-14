@@ -26,7 +26,6 @@ public class PluginLoader {
                 PluginList) {
             e.load();
         }
-        registerCommand();
     }
 
 
@@ -34,22 +33,23 @@ public class PluginLoader {
      * Load method. Not first time loading.
      */
     public void reload() {
-
+        for (PluginBase e :
+                PluginList) {
+            e.reload();
+        }
     }
 
     /**
      * Unload method.
      */
     public void shutdown() {
-
+        for (PluginBase e :
+                PluginList) {
+            e.shutdown();
+        }
     }
     private void addPlugins() {
         PluginList.add(PicturesPlugin.INSTANCE);
-    }
-    private void registerCommand() {
-        this.INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
-        Elysia.logger.debug("PluginLoader.addPlugins", "Added PicturesPlugin. ");
-        this.INSTANCE.registerCommand(Ping.INSTANCE, false);
-        Elysia.logger.debug("PluginLoader.addPlugins", "Added Ping. ");
+        PluginList.add(Ping.INSTANCE);
     }
 }

@@ -12,14 +12,16 @@ import top.rongxiaoli.log.ElysiaLogger;
 import java.util.Objects;
 
 /**
- *
+ * Picture plugin.
  */
 public class PicturesPlugin extends JRawCommand implements PluginBase {
+    public ElysiaLogger logger = new ElysiaLogger();
     /**
      * The PicturePlugin static instance.
      */
     public static final PicturesPlugin INSTANCE = new PicturesPlugin();
     private static final String NAME = "PicturesPlugin";
+    private DelayedDisposer disposer;
 
     /**
      * Pictures from lolicon API.
@@ -36,11 +38,18 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void onCommand(@NotNull CommandContext context, @NotNull MessageChain args) {
-        Elysia.INSTANCE.getLogger().info("Test");
+        logger.verbose(NAME, "Command invoked by " + context.getSender().getUser() + ", on context: " + context.getSender().getSubject().getId());
     }
+
+    /**
+     * Load method. First time loading.
+     */
     @Override
     public void load() {
-        Elysia.logger.info(NAME, "Loading " + NAME);
+        logger.debug(NAME, "Command loading. ");
+        logger.verbose(NAME, "Initializing Disposer. ");
+        this.disposer = new DelayedDisposer();
+        logger.debug(NAME, "Command loaded. ");
     }
 
     /**
@@ -48,7 +57,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void reload() {
-
+        logger.debug(NAME, "Reload complete. ");
     }
 
     /**
@@ -56,7 +65,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void shutdown() {
-
+        logger.debug(NAME, "shutdown() invoked. Nothing special, pass. ");
     }
 
     /**
@@ -64,7 +73,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-
+        logger.debug(NAME, "Nothing to store. ");
     }
 
     /**
@@ -72,6 +81,6 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void reloadData() {
-
+        logger.debug(NAME, "Nothing to load. ");
     }
 }
