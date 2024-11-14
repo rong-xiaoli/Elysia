@@ -1,7 +1,17 @@
 package top.rongxiaoli.backend;
 
+import net.mamoe.mirai.utils.MiraiLogger;
+
 public interface PluginBase {
     PluginBase INSTANCE = null;
+    PluginConfigBase CONFIG_BASE = null;
+    PluginDataBase DATA_BASE = null;
+    MiraiLogger LOGGER = null;
+
+    /**
+     * Load method. First time loading.
+     */
+    void load();
 
     /**
      * Reload method. Usually for resetting state.

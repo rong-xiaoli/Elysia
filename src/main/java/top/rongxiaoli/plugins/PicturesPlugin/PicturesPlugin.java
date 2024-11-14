@@ -1,8 +1,9 @@
-package top.rongxiaoli.plugins;
+package top.rongxiaoli.plugins.PicturesPlugin;
 
 import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.console.command.java.JRawCommand;
 import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase;
@@ -23,13 +24,11 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
     /**
      * Pictures from lolicon API.
      */
-    private PicturesPlugin() {
-        super(PicturesPlugin.INSTANCE.getOwner(), "setu");
-        ElysiaLogger.INSTANCE.debug(NAME, "Picture plugin start initiating. ");
+    public PicturesPlugin() {
+        super(Elysia.INSTANCE, "setu");
         setUsage("[/]setu [keyword1 keyword2 keyword3 ...]");
         setDescription("涩图，使用Lolicon API，可指定关键词");
         setPrefixOptional(true);
-        ElysiaLogger.INSTANCE.debug(NAME, "Picture plugin initiated. ");
     }
 
     /**
@@ -37,9 +36,11 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void onCommand(@NotNull CommandContext context, @NotNull MessageChain args) {
-        ElysiaLogger.INSTANCE.verbose("PicturePlugin.onCommand",
-                "Got message from: ",
-                Objects.requireNonNull(context.getSender().getUser()).toString());
+        Elysia.INSTANCE.getLogger().info("Test");
+    }
+    @Override
+    public void load() {
+        Elysia.logger.info(NAME, "Loading " + NAME);
     }
 
     /**
