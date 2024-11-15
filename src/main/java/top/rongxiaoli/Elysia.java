@@ -12,8 +12,6 @@ public final class Elysia extends JavaPlugin {
     public static final Elysia INSTANCE = new Elysia();
     public static ElysiaLogger logger;
     public static final PluginLoader LOADER = new PluginLoader();
-    public static Path ConfigPath = INSTANCE.getConfigFolderPath();
-    public static Path DataPath = INSTANCE.getDataFolderPath();
     public static boolean PluginRunning = false;
 
     private Elysia() {
@@ -34,5 +32,11 @@ public final class Elysia extends JavaPlugin {
         logger.verbose("Elysia.onEnable", "Plugin load complete. ");
         logger.verbose("Elysia.onEnable", "Initialization complete. ");
         Elysia.PluginRunning = true;
+    }
+    public static Path GetConfigPath() {
+      return INSTANCE.getConfigFolderPath();
+    }
+    public static Path GetDataPath() {
+      return INSTANCE.getDataFolderPath();
     }
 }
