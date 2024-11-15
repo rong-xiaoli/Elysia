@@ -1,10 +1,12 @@
 package top.rongxiaoli.plugins.PicturesPlugin;
 
+import cn.hutool.core.thread.ThreadUtil;
 import net.mamoe.mirai.contact.User;
 import org.jetbrains.annotations.NotNull;
+import top.rongxiaoli.log.ElysiaLogger;
 
-import javax.management.InstanceAlreadyExistsException;
 import java.util.LinkedHashSet;
+import java.util.NoSuchElementException;
 import java.util.concurrent.DelayQueue;
 import java.util.concurrent.Delayed;
 import java.util.concurrent.TimeUnit;
@@ -12,9 +14,16 @@ import java.util.concurrent.TimeUnit;
 public class DelayedDisposer {
     public DelayedDisposer() {
         this.coolingQueue = new DelayQueue<>();
+        this.userHashSet = new LinkedHashSet<>();
+        this.LOGGER = new ElysiaLogger();
+        this.consumeThread = new Thread(consumer);
     }
+    DelayConsumer consumer = new DelayConsumer(this);
+    private boolean isLocked = false;
+    private final ElysiaLogger LOGGER;
+    private final Thread consumeThread;
     private final DelayQueue<CoolingUser> coolingQueue;
-    private LinkedHashSet<Long> userHashSet;
+    private final LinkedHashSet<Long> userHashSet;
     /**
      * Add user into cooling list using default cooling timer.
      * @param user User object.
@@ -25,6 +34,7 @@ public class DelayedDisposer {
         }
         userHashSet.add(user.getId());
         coolingQueue.add(new CoolingUser(user.getId()));
+        LOGGER.verbose("New user added to cooling queue: " + user.getId());
     }
 
     /**
@@ -38,6 +48,39 @@ public class DelayedDisposer {
         }
         userHashSet.add(user.getId());
         coolingQueue.add(new CoolingUser(user.getId(), ((long) intervalSecond) * 1000000));
+        LOGGER.verbose("New user added to cooling queue: " + user.getId());
+    }
+
+    /**
+     * Query the cooling time the user have.
+     * @param user Target user.
+     * @return Integer indicating how many seconds left to move user out of the queue.
+     */
+    public long QueryCoolingTime(User user) throws NoSuchElementException {
+        if (!userHashSet.contains(user.getId())) {
+            return 0;
+        }
+        for (CoolingUser singleUser :
+                coolingQueue) {
+            if (singleUser.user == user.getId()) {
+                return singleUser.getDelay(TimeUnit.SECONDS);
+            }
+        }
+        throw new NoSuchElementException("There's no such user: " + user.getId());
+    }
+    public boolean IsLocked() {
+        return this.isLocked;
+    }
+
+    public void startTiming() {
+        consumer = new DelayConsumer(this);
+        consumeThread.start();
+    }
+    public void Shutdown() {
+        this.coolingQueue.clear();
+        this.userHashSet.clear();
+        this.consumer.Shutdown();
+        ThreadUtil.safeSleep(1000);
     }
     public static class CoolingUser implements Delayed {
         private final long user;
@@ -48,7 +91,7 @@ public class DelayedDisposer {
         }
         public CoolingUser(long user) {
             this.user = user;
-            this.availableTime = System.currentTimeMillis() + 60000000L;
+            this.availableTime = System.currentTimeMillis() + 60000L;
         }
         public long getAvailableTime() {return availableTime;}
 
@@ -73,5 +116,34 @@ public class DelayedDisposer {
         }
         public Object getObj() {return obj;}
     }
-    // Todo: Implement the moving out part.
+    private static class DelayConsumer implements Runnable{
+        private boolean isShuttingDown = false;
+
+        private DelayedDisposer disposer;
+        private boolean isConsuming = false;
+        private final ElysiaLogger LOGGER = new ElysiaLogger();
+        public DelayConsumer(DelayedDisposer disposer) {
+            this.disposer = disposer;
+        }
+        public void Shutdown() {
+            this.isShuttingDown = true;
+        }
+        public boolean isConsuming() {return isConsuming;}
+        @Override
+        public void run() {
+            do {
+                isConsuming = true;
+                if (!ThreadUtil.safeSleep(500)) {
+                    LOGGER.warn("DelayConsumer", "Sleep is interrupted. ");
+                    isConsuming = false;
+                    return;
+                }
+                CoolingUser u;
+                while ((u = disposer.coolingQueue.poll()) != null) {
+                    LOGGER.verbose("DelayQueue", "Ejecting delayed element: " + u.user);
+                    disposer.userHashSet.remove(u.user);
+                }
+            } while (!isShuttingDown);
+        }
+    }
 }
