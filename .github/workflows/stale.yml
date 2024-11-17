@@ -23,5 +23,5 @@ jobs:
         repo-token: ${{ secrets.GITHUB_TOKEN }}
         stale-issue-message: 'This issue is automatically closed because of inactivity. '
         stale-pr-message: 'This PR is automatically closed because of inactivity. '
-        stale-issue-label: 'no-issue-activity'
-        stale-pr-label: 'no-pr-activity'
+        stale-issue-label: 'stale'
+        stale-pr-label: 'stale'
