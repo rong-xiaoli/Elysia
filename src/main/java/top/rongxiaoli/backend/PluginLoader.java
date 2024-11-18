@@ -1,8 +1,7 @@
 package top.rongxiaoli.backend;
 
-import net.mamoe.mirai.console.command.Command;
 import net.mamoe.mirai.console.command.CommandManager;
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.plugins.DailyFortune.DailyFortune;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;
 import top.rongxiaoli.plugins.Ping.Ping;
 
@@ -54,5 +53,7 @@ public class PluginLoader {
         INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
         PluginList.add(Ping.INSTANCE);
         INSTANCE.registerCommand(Ping.INSTANCE, false);
+        PluginList.add(DailyFortune.INSTANCE);
+        INSTANCE.registerCommand(DailyFortune.INSTANCE, false);
     }
 }
