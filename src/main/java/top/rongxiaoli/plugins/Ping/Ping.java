@@ -12,6 +12,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
     private static final String NAME = "Ping";
     public Ping() {
         super(Elysia.INSTANCE, "ping");
+        setPrefixOptional(true);
         logger = new ElysiaLogger();
     }
 
