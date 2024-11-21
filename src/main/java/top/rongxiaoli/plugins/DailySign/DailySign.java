@@ -12,6 +12,7 @@ import java.util.GregorianCalendar;
 import java.util.Objects;
 
 public class DailySign extends JSimpleCommand implements PluginBase {
+    private static int dayCount = 0;
     private static final String bingPictAPI = "https://bing.img.run/1366x768.php";
     private static final DailySignData DATA = new DailySignData();
     private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class);
@@ -31,10 +32,26 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         MessageChainBuilder mainBuilder = new MessageChainBuilder();
         DailySignData.DailySignPersonData userData = DATA.query(userID);
         GregorianCalendar gCalendar = ((GregorianCalendar) Calendar.getInstance());
-        if (gCalendar.get(Calendar.DAY_OF_YEAR) == userData.lastLoginDate.get(Calendar.DAY_OF_YEAR)) {
+        if (userData != null && gCalendar.get(Calendar.DAY_OF_YEAR) == userData.lastLoginDate.get(Calendar.DAY_OF_YEAR)) {
             mainBuilder.append("你已经签过到了哦~\n");
+            mainBuilder.append(DailySignString.GetRandomString());
+            context.getSender().sendMessage(mainBuilder.build());
+            return;
         }
-
+        if (userData == null) {
+            userData = new DailySignData.DailySignPersonData();
+            userData.lastLoginDate = ((GregorianCalendar) Calendar.getInstance());
+        }
+        DailySignData.DailySignPersonData newData = new DailySignData.DailySignPersonData();
+        newData.lastLoginDate = ((GregorianCalendar) Calendar.getInstance());
+        if (newData.lastLoginDate.getTimeInMillis() - userData.lastLoginDate.getTimeInMillis() >= 86400) {
+            newData.ContinuousSignCombo = 1;
+        } else newData.ContinuousSignCombo = userData.ContinuousSignCombo + 1;
+        mainBuilder.append("签到咯~\n")
+                .append(DailySignString.GetRandomString()).append("\n")
+                .append("你已连续签到").append(String.valueOf(newData.ContinuousSignCombo)).append("天\n")
+                .append("今天你是第").append(String.valueOf(dayCount)).append("个签到的");
+        context.getSender().sendMessage(mainBuilder.build());
     }
     /**
      * Load method. First time loading.

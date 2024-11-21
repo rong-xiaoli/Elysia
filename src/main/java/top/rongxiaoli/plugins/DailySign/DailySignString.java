@@ -4,26 +4,29 @@ import net.mamoe.mirai.utils.MiraiLogger;
 
 import java.time.DayOfWeek;
 import java.time.LocalDateTime;
-import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Random;
 
 public class DailySignString {
-    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignString.class);
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignString.class);
 
     /**
      * Get a random string.
      *
-     * @param Year        Year.
-     * @param Month       Month.
-     * @param Day         Day.
-     * @param Week        Day of week.
-     * @param Hour        Hour.
-     * @param Minute      Minute.
-     * @param Second      Second. Used for Jan 1st.
-     * @param Millisecond Millisecond. Used for Jan 1st.
      * @return NewRandom string.
      */
-    public String GetRandomString(int Year, int Month, int Day, DayOfWeek Week, int Hour, int Minute, int Second, int Millisecond) {
+    public static String GetRandomString() {
+        DayOfWeek Week = DayOfWeek.of(Calendar.getInstance().get(Calendar.DAY_OF_WEEK));
+        LocalDateTime presentTime = LocalDateTime.now();
+
+        int year = presentTime.getYear(),
+                month = presentTime.getMonthValue(),
+                day = presentTime.getDayOfMonth(),
+                hour = presentTime.getHour(),
+                minute = presentTime.getMinute(),
+                second = presentTime.getSecond(),
+                millisecond = presentTime.getNano();
+
         //Variables declaration.
         String YearBasedString;
         String MonthBasedString;
@@ -39,7 +42,7 @@ public class DailySignString {
 
         //Year only.
         YearBasedString = "今年是";
-        switch (Year % 12) {
+        switch (year % 12) {
             case 0:
                 YearBasedString += "猴年呢~";
                 break;
@@ -79,74 +82,74 @@ public class DailySignString {
         }
         //Holiday region start.
         //MixedString.
-        if (Month == 1 && Day >= 1 && Day <= 3) {
+        if (month == 1 && day >= 1 && day <= 3) {
             MixedString = "元旦快乐！";
         }
-        if (Month == 1 && Day == 1 && Hour == 0 && Minute == 0) {
+        if (month == 1 && day == 1 && hour == 0 && minute == 0) {
             MixedString = "真准时呢~元旦快乐哦~";
         }
-        if (Month == 1 && Day == 1 && Hour == 0 && Minute == 0 && Second == 0 && Millisecond == 0) {
+        if (month == 1 && day == 1 && hour == 0 && minute == 0 && second == 0 && millisecond == 0) {
             MixedString = "怎么做到这么准时的？？新年快乐~";
         }
-        if (Month == 2 && Day == 14) {
+        if (month == 2 && day == 14) {
             MixedString = "祝福天下有情人~";
         }
-        if (Month == 3 && Day == 8) {
+        if (month == 3 && day == 8) {
             MixedString = "祝各位妇女们节日快乐~";
         }
-        if (Month == 4 && Day == 1) {
+        if (month == 4 && day == 1) {
             MixedString = "Never gonna give you up~";
         }
-        if (Month == 5 && Day == 1) {
+        if (month == 5 && day == 1) {
             MixedString = "Debout, les damnés de la terre~";
         }
-        if (Month == 5 && Day == 4) {
+        if (month == 5 && day == 4) {
             MixedString = "我们是初升的太阳， 用生命点燃未来！";
         }
-        if (Month == 5 && Day >= 8 && Day <= 14 && Week.getValue() == 7) {
+        if (month == 5 && day >= 8 && day <= 14 && Week.getValue() == 7) {
             MixedString = "母爱的伟大！";
         }
-        if (Month == 6 && Day == 1) {
+        if (month == 6 && day == 1) {
             MixedString = "给祖国未来花献花~";
         }
-        if (Month == 6 && Day >= 15 && Day <= 21 && Week.getValue() == 7) {
+        if (month == 6 && day >= 15 && day <= 21 && Week.getValue() == 7) {
             MixedString = "给爸爸揉揉肩吧~";
         }
-        if (Month == 7 && Day == 1) {
+        if (month == 7 && day == 1) {
             MixedString = "满腔的热血已经沸腾, 要为真理而斗争! ";
         }
-        if (Month == 8 && Day == 1) {
+        if (month == 8 && day == 1) {
             MixedString = "最可爱的人们~";
         }
-        if (Month == 8 && Day >= 24) {
+        if (month == 8 && day >= 24) {
             MixedString = "暑假作业做完了吗？（恶魔低语）";
         }
-        if (Month == 8 && Day == 31) {
+        if (month == 8 && day == 31) {
             MixedString = "返校了吗？";
         }
-        if (Month == 9 && Day == 1) {
+        if (month == 9 && day == 1) {
             MixedString = "开学快乐！";
         }
-        if (Month == 10 && Day >= 1 && Day <= 7) {
+        if (month == 10 && day >= 1 && day <= 7) {
             MixedString = "国庆快乐！";
         }
-        if (Month == 10 && Day == 31 && Hour >= 18) {
+        if (month == 10 && day == 31 && hour >= 18) {
             MixedString = "Trick or treat~";
         }
-        if (Month == 11 && Day == 11) {
+        if (month == 11 && day == 11) {
             MixedString = "今天，是超市特价日啊！！！";
         }
-        if (Month == 12 && Day == 24 && Hour >= 18) {
+        if (month == 12 && day == 24 && hour >= 18) {
             MixedString = "Silent night, holy night~";
         }
-        if (Month == 12 && Day == 25 && Hour <= 12) {
+        if (month == 12 && day == 25 && hour <= 12) {
             MixedString = "Ho ho ho! Merry Christmas! ";
         }
-        if (Month == 12 && Day == 31) {
+        if (month == 12 && day == 31) {
             MixedString = "年末啦~一年以来辛苦了~";
         }
         //Month only.
-        switch (Month) {
+        switch (month) {
             case 1:
                 MonthBasedString = "新的一年，新的开始";
                 break;
@@ -185,7 +188,7 @@ public class DailySignString {
                 break;
             default:
                 MonthBasedString = "美好的一天~";
-                LOGGER.warning("Unexpected value: Month = " + Month);
+                LOGGER.warning("Unexpected value: Month = " + month);
                 break;
         }
         //Day of week only.
@@ -217,7 +220,7 @@ public class DailySignString {
                 break;
         }
         //Day only.
-        switch (Day) {
+        switch (day) {
             case 30:
             case 31:
                 DayBasedString = "月末了~工资发了吗？";
@@ -230,7 +233,7 @@ public class DailySignString {
                 break;
         }
         //Hour only.
-        switch (Hour) {
+        switch (hour) {
             case 0:
             case 1:
             case 2:
@@ -297,7 +300,7 @@ public class DailySignString {
                 break;
             default:
                 HourBasedString = "美好的一天~";
-                LOGGER.warning("Unexpected value: Hour = " + Hour);
+                LOGGER.warning("Unexpected value: Hour = " + hour);
                 break;
         }
 
@@ -344,29 +347,5 @@ public class DailySignString {
             default:
                 return HourBasedString;
         }
-    }
-
-    /**
-     * Generate a sign in content for a friend.
-     *
-     * @param presentTime    Present time.
-     * @param signInPosition Sign in position.
-     * @return Sign in message content.
-     */
-    public String FriendString(LocalDateTime presentTime, long signInPosition) {
-        StringBuilder friendStringBuilder = new StringBuilder();
-        int year = presentTime.getYear(),
-                month = presentTime.getMonthValue(),
-                day = presentTime.getDayOfMonth(),
-                hour = presentTime.getHour(),
-                minute = presentTime.getMinute(),
-                second = presentTime.getSecond(),
-                millisecond = presentTime.getNano();
-        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("HH:mm:ss");
-        friendStringBuilder.append("今天是").append(year).append("年").append(month).append("月").append(day).append("日").append("\n");
-        friendStringBuilder.append("现在是").append(presentTime.format(formatter)).append("\n");
-        friendStringBuilder.append("本次打卡位次为：").append(signInPosition).append("\n");
-        friendStringBuilder.append(GetRandomString(year, month, day, presentTime.getDayOfWeek(), hour, minute, second, millisecond));
-        return friendStringBuilder.toString();
     }
 }
