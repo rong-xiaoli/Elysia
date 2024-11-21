@@ -20,7 +20,7 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
     public DailySignData() {
         super("DailySignData");
     }
-    public final Value<Map<Long, DailySignPersonData>> DailySignDataSet = typedValue("DailySignDataSet",
+    private final Value<Map<Long, DailySignPersonData>> DailySignDataSet = typedValue("DailySignDataSet",
             createKType(Map.class, createKType(Long.class), createKType(DailySignPersonData.class,
                     createKType(GregorianCalendar.class), createKType(int.class))),
             new HashMap<>());
@@ -50,5 +50,8 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
         LOGGER.debug("Saving data. ");
         Elysia.INSTANCE.savePluginData(INSTANCE);
         LOGGER.debug("Data saved. ");
+    }
+    public DailySignPersonData query(long userID) {
+        return DailySignDataSet.get().get(userID);
     }
 }

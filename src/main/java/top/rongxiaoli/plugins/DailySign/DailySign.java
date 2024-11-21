@@ -1,11 +1,18 @@
 package top.rongxiaoli.plugins.DailySign;
 
+import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.console.command.java.JSimpleCommand;
+import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase;
 
+import java.util.Calendar;
+import java.util.GregorianCalendar;
+import java.util.Objects;
+
 public class DailySign extends JSimpleCommand implements PluginBase {
+    private static final String bingPictAPI = "https://bing.img.run/1366x768.php";
     private static final DailySignData DATA = new DailySignData();
     private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class);
     public static final DailySign INSTANCE = new DailySign();
@@ -13,7 +20,22 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         super(Elysia.INSTANCE, "sign", "qd");
         setDescription("每日签到");
     }
+    @Handler
+    public void onCommand(CommandContext context) {
+        // Not console.
+        if (isConsoleCalling(context)) {
+            context.getSender().sendMessage("你是0吗？");
+            return;
+        }
+        long userID = Objects.requireNonNull(context.getSender().getUser()).getId();
+        MessageChainBuilder mainBuilder = new MessageChainBuilder();
+        DailySignData.DailySignPersonData userData = DATA.query(userID);
+        GregorianCalendar gCalendar = ((GregorianCalendar) Calendar.getInstance());
+        if (gCalendar.get(Calendar.DAY_OF_YEAR) == userData.lastLoginDate.get(Calendar.DAY_OF_YEAR)) {
+            mainBuilder.append("你已经签过到了哦~\n");
+        }
 
+    }
     /**
      * Load method. First time loading.
      */
@@ -71,4 +93,21 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         logger.verbose("No config needed. ");
         logger.debug("DailySign reloaded. ");
     }
+    private boolean isConsoleCalling(CommandContext context) {
+        long userID = 0, subjectID = 0;
+        // From console, return:
+        try {
+            userID = Objects.requireNonNull(context.getSender().getUser()).getId();
+            subjectID = Objects.requireNonNull(context.getSender().getSubject()).getId();
+        } catch (NullPointerException e) {
+            logger.warning("This command cannot be invoked from console! ");
+            return true;
+        }
+        if (userID == 0 || subjectID == 0) {
+            logger.warning("This command cannot be invoked from console! ");
+            return true;
+        }
+        return false;
+    }
+
 }
