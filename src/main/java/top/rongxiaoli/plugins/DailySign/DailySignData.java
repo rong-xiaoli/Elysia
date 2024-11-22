@@ -66,13 +66,13 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
         if(lastSignDateDataset.get().get(userID) == null) return 0L;
         return lastSignDateDataset.get().get(userID);
     }
-    public void setLastSignDate(long userID, long date) {
-        if (!lastSignDateDataset.get().containsKey(userID)) lastSignDateDataset.get().replace(userID, date);
-        else lastSignDateDataset.get().put(userID, date);
-    }
     public int querySignCombo(long userID) {
         if (signComboDataSet.get().get(userID) == null) return 0;
         return signComboDataSet.get().get(userID);
+    }
+    public void setLastSignDate(long userID, long date) {
+        if (!lastSignDateDataset.get().containsKey(userID)) lastSignDateDataset.get().replace(userID, date);
+        else lastSignDateDataset.get().put(userID, date);
     }
     public void setSignCombo(long userID, int count) {
         if (!signComboDataSet.get().containsKey(userID)) signComboDataSet.get().replace(userID, count);

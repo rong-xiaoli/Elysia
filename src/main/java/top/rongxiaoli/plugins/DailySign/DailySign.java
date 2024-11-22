@@ -10,11 +10,12 @@ import top.rongxiaoli.backend.PluginBase;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
+import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.TimeUnit;
 
 public class DailySign extends JSimpleCommand implements PluginBase {
-    private static ScheduledExecutorService executorService;
+    private static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     private static int signCount = 0;
     private static final DailySignData DATA = new DailySignData();
     private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class);
@@ -37,12 +38,11 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         MessageChainBuilder mainBuilder = new MessageChainBuilder();
         GregorianCalendar lastSign = (GregorianCalendar) Calendar.getInstance();
         long lastSignMillis = DATA.queryLastSignDate(userID);
-        if (lastSignMillis == 0) {
-            lastSignMillis = Calendar.getInstance().getTimeInMillis();
-        }
         lastSign.setTimeInMillis(lastSignMillis);
         int signCombo = DATA.querySignCombo(userID);
         GregorianCalendar gCalendar = ((GregorianCalendar) Calendar.getInstance());
+        logger.verbose(String.valueOf(gCalendar.get(Calendar.DAY_OF_YEAR)));
+        logger.verbose(String.valueOf(lastSign.get(Calendar.DAY_OF_YEAR)));
         if (gCalendar.get(Calendar.DAY_OF_YEAR) == lastSign.get(Calendar.DAY_OF_YEAR)) {
             mainBuilder.append("你已经签过到了哦~\n");
             mainBuilder.append(DailySignString.GetRandomString());
@@ -73,11 +73,18 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         logger.verbose("Data load complete. ");
         logger.verbose("No config load needed. ");
         executorService.scheduleAtFixedRate(
-                new DailySignTimer(),
+                new DailySignTimer.SignCountTimer(),
                 getMilliSecondsToNextDay12AM(),
                 86400000000L,
                 TimeUnit.MILLISECONDS
         );
+        executorService.scheduleAtFixedRate(
+                new DailySignTimer.DataSaveTimer(),
+                0,
+                5,
+                TimeUnit.MINUTES
+        );
+        logger.verbose("The two scheduler started. ");
         logger.debug("DailySign loaded. ");
     }
 
@@ -102,6 +109,7 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         DATA.shutdown();
         logger.verbose("Data shutdown complete. ");
         logger.verbose("No config shutdown needed. ");
+        executorService.shutdown();
         logger.debug("DailySign shut down. ");
     }
 
