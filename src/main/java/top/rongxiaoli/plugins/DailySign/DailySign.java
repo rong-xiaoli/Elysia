@@ -10,47 +10,57 @@ import top.rongxiaoli.backend.PluginBase;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.Objects;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.TimeUnit;
 
 public class DailySign extends JSimpleCommand implements PluginBase {
-    private static int dayCount = 0;
-    private static final String bingPictAPI = "https://bing.img.run/1366x768.php";
+    private static ScheduledExecutorService executorService;
+    private static int signCount = 0;
     private static final DailySignData DATA = new DailySignData();
     private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class);
     public static final DailySign INSTANCE = new DailySign();
+    public static void clearSignCount() {
+        signCount = 0;
+    }
     public DailySign() {
         super(Elysia.INSTANCE, "sign", "qd");
         setDescription("每日签到");
     }
     @Handler
     public void onCommand(CommandContext context) {
-        // Not console.
+        // Is console calling?
         if (isConsoleCalling(context)) {
             context.getSender().sendMessage("你是0吗？");
             return;
         }
         long userID = Objects.requireNonNull(context.getSender().getUser()).getId();
         MessageChainBuilder mainBuilder = new MessageChainBuilder();
-        DailySignData.DailySignPersonData userData = DATA.query(userID);
+        GregorianCalendar lastSign = (GregorianCalendar) Calendar.getInstance();
+        long lastSignMillis = DATA.queryLastSignDate(userID);
+        if (lastSignMillis == 0) {
+            lastSignMillis = Calendar.getInstance().getTimeInMillis();
+        }
+        lastSign.setTimeInMillis(lastSignMillis);
+        int signCombo = DATA.querySignCombo(userID);
         GregorianCalendar gCalendar = ((GregorianCalendar) Calendar.getInstance());
-        if (userData != null && gCalendar.get(Calendar.DAY_OF_YEAR) == userData.lastLoginDate.get(Calendar.DAY_OF_YEAR)) {
+        if (gCalendar.get(Calendar.DAY_OF_YEAR) == lastSign.get(Calendar.DAY_OF_YEAR)) {
             mainBuilder.append("你已经签过到了哦~\n");
             mainBuilder.append(DailySignString.GetRandomString());
             context.getSender().sendMessage(mainBuilder.build());
             return;
         }
-        if (userData == null) {
-            userData = new DailySignData.DailySignPersonData();
-            userData.lastLoginDate = ((GregorianCalendar) Calendar.getInstance());
-        }
-        DailySignData.DailySignPersonData newData = new DailySignData.DailySignPersonData();
-        newData.lastLoginDate = ((GregorianCalendar) Calendar.getInstance());
-        if (newData.lastLoginDate.getTimeInMillis() - userData.lastLoginDate.getTimeInMillis() >= 86400) {
-            newData.ContinuousSignCombo = 1;
-        } else newData.ContinuousSignCombo = userData.ContinuousSignCombo + 1;
-        mainBuilder.append("签到咯~\n")
-                .append(DailySignString.GetRandomString()).append("\n")
-                .append("你已连续签到").append(String.valueOf(newData.ContinuousSignCombo)).append("天\n")
-                .append("今天你是第").append(String.valueOf(dayCount)).append("个签到的");
+        GregorianCalendar newSign = ((GregorianCalendar) Calendar.getInstance());
+        int newCombo;
+        if (newSign.getTimeInMillis() - lastSign.getTimeInMillis() >= 86400) {
+            newCombo = 1;
+        } else newCombo = signCombo + 1;
+        signCount += 1;
+        DATA.setLastSignDate(userID, newSign.getTimeInMillis());
+        DATA.setSignCombo(userID, newCombo);
+        mainBuilder.append("签到咯~\n");
+        mainBuilder.append(DailySignString.GetRandomString()).append("\n")
+                .append("你已连续签到").append(String.valueOf(newCombo)).append("天\n")
+                .append("今天你是第").append(String.valueOf(signCount)).append("个签到的");
         context.getSender().sendMessage(mainBuilder.build());
     }
     /**
@@ -62,6 +72,12 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         DATA.load();
         logger.verbose("Data load complete. ");
         logger.verbose("No config load needed. ");
+        executorService.scheduleAtFixedRate(
+                new DailySignTimer(),
+                getMilliSecondsToNextDay12AM(),
+                86400000000L,
+                TimeUnit.MILLISECONDS
+        );
         logger.debug("DailySign loaded. ");
     }
 
@@ -125,6 +141,15 @@ public class DailySign extends JSimpleCommand implements PluginBase {
             return true;
         }
         return false;
+    }
+    private long getMilliSecondsToNextDay12AM () {
+        Calendar target = Calendar.getInstance();
+        target.add(Calendar.DAY_OF_YEAR, 1);
+        target.set(Calendar.HOUR_OF_DAY, 0);
+        target.set(Calendar.MINUTE, 0);
+        target.set(Calendar.SECOND, 0);
+        target.set(Calendar.MILLISECOND, 0);
+        return target.getTimeInMillis() - System.currentTimeMillis();
     }
 
 }

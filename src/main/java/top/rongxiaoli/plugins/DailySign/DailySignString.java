@@ -82,7 +82,7 @@ public class DailySignString {
         }
         //Holiday region start.
         //MixedString.
-        if (month == 1 && day >= 1 && day <= 3) {
+        if (month == 1 && day <= 3) {
             MixedString = "元旦快乐！";
         }
         if (month == 1 && day == 1 && hour == 0 && minute == 0) {
@@ -130,7 +130,7 @@ public class DailySignString {
         if (month == 9 && day == 1) {
             MixedString = "开学快乐！";
         }
-        if (month == 10 && day >= 1 && day <= 7) {
+        if (month == 10 && day <= 7) {
             MixedString = "国庆快乐！";
         }
         if (month == 10 && day == 31 && hour >= 18) {
@@ -328,7 +328,7 @@ public class DailySignString {
         }
 
         //Process start.
-        if (!MixedString.equals("")) {
+        if (!MixedString.isEmpty()) {
             return MixedString;
         }
         StringSelection = random.nextInt(1, 6);
