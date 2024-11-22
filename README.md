@@ -24,8 +24,3 @@
 - [ ] 抽奖
 - [ ] 财富榜
 
-
-
-
-## License
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frong-xiaoli%2FElysia.svg?type=large)](https://app.fossa.com/projects/git%2Bgithub.com%2Frong-xiaoli%2FElysia?ref=badge_large)
