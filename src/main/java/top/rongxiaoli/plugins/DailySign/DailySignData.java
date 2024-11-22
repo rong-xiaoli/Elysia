@@ -35,10 +35,14 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
             new HashMap<Long, Integer>() {{
                 put(1L, 0);
             }});
+    private static Map<Long, Integer> signComboDataMap = new HashMap<>();
+    private static Map<Long,Long> lastSignDateDataMap = new HashMap<>();
     @Override
     public void load() {
         LOGGER.verbose("Loading data. ");
         Elysia.INSTANCE.reloadPluginData(INSTANCE);
+        lastSignDateDataMap = lastSignDateDataset.get();
+        signComboDataMap = signComboDataSet.get();
         LOGGER.debug("Load complete. ");
     }
 
@@ -63,19 +67,19 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
         LOGGER.debug("Data saved. ");
     }
     public long queryLastSignDate(long userID) {
-        if(lastSignDateDataset.get().get(userID) == null) return 0L;
-        return lastSignDateDataset.get().get(userID);
+        if(lastSignDateDataMap.get(userID) == null) return 0L;
+        return lastSignDateDataMap.get(userID);
     }
     public int querySignCombo(long userID) {
-        if (signComboDataSet.get().get(userID) == null) return 0;
-        return signComboDataSet.get().get(userID);
+        if (signComboDataMap.get(userID) == null) return 0;
+        return signComboDataMap.get(userID);
     }
     public void setLastSignDate(long userID, long date) {
-        if (!lastSignDateDataset.get().containsKey(userID)) lastSignDateDataset.get().replace(userID, date);
-        else lastSignDateDataset.get().put(userID, date);
+        if (lastSignDateDataMap.containsKey(userID)) lastSignDateDataMap.replace(userID, date);
+        else lastSignDateDataMap.put(userID, date);
     }
     public void setSignCombo(long userID, int count) {
-        if (!signComboDataSet.get().containsKey(userID)) signComboDataSet.get().replace(userID, count);
-        else signComboDataSet.get().put(userID, count);
+        if (signComboDataMap.containsKey(userID)) signComboDataMap.replace(userID, count);
+        else signComboDataMap.put(userID, count);
     }
 }
