@@ -10,7 +10,7 @@ import java.util.HashMap;
 import java.util.Map;
 public class DailySignData extends JavaAutoSavePluginData implements PluginDataBase {
     public static final DailySignData INSTANCE = new DailySignData();
-    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignData.class);
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignData.class, "Elysia.DailySign.Data");
 //    public GregorianCalendar lastLoginDate;
 //    public int ContinuousSignCombo;
     public DailySignData() {

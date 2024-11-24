@@ -18,7 +18,7 @@ public class DailySign extends JSimpleCommand implements PluginBase {
     private static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     private static int signCount = 0;
     private static final DailySignData DATA = new DailySignData();
-    private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class);
+    private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class, "Elysia.DailySign");
     public static final DailySign INSTANCE = new DailySign();
     public static void clearSignCount() {
         signCount = 0;

@@ -4,7 +4,7 @@ import net.mamoe.mirai.utils.MiraiLogger;
 
 public class DailySignTimer {
     public static class SignCountTimer implements Runnable {
-        private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(SignCountTimer.class);
+        private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(SignCountTimer.class, "Elysia.DailySign.SignCountTimer");
         /**
          * When an object implementing interface {@code Runnable} is used
          * to create a thread, starting the thread causes the object's
@@ -24,7 +24,7 @@ public class DailySignTimer {
     }
     public static class DataSaveTimer implements Runnable {
 
-        private MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DataSaveTimer.class);
+        private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DataSaveTimer.class, "Elysia.DailySign.DataSaveTimer");
         /**
          * When an object implementing interface {@code Runnable} is used
          * to create a thread, starting the thread causes the object's
