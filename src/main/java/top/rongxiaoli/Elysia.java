@@ -33,6 +33,14 @@ public final class Elysia extends JavaPlugin {
         logger.verbose("Elysia.onEnable", "Initialization complete. ");
         Elysia.PluginRunning = true;
     }
+
+    @Override
+    public void onDisable() {
+        getLogger().debug("Start disabling process. ");
+        LOADER.shutdown();
+        getLogger().debug("Shutdown complete. ");
+    }
+
     public static Path GetConfigPath() {
       return INSTANCE.getConfigFolderPath();
     }

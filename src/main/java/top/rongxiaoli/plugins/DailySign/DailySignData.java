@@ -11,8 +11,6 @@ import java.util.Map;
 public class DailySignData extends JavaAutoSavePluginData implements PluginDataBase {
     public static final DailySignData INSTANCE = new DailySignData();
     private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignData.class, "Elysia.DailySign.Data");
-//    public GregorianCalendar lastLoginDate;
-//    public int ContinuousSignCombo;
     public DailySignData() {
         super("DailySignData");
     }
@@ -35,14 +33,10 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
             new HashMap<Long, Integer>() {{
                 put(1L, 0);
             }});
-    private static Map<Long, Integer> signComboDataMap = new HashMap<>();
-    private static Map<Long,Long> lastSignDateDataMap = new HashMap<>();
     @Override
     public void load() {
         LOGGER.verbose("Loading data. ");
         Elysia.INSTANCE.reloadPluginData(INSTANCE);
-        lastSignDateDataMap = lastSignDateDataset.get();
-        signComboDataMap = signComboDataSet.get();
         LOGGER.debug("Load complete. ");
     }
 
@@ -67,19 +61,25 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
         LOGGER.debug("Data saved. ");
     }
     public long queryLastSignDate(long userID) {
-        if(lastSignDateDataMap.get(userID) == null) return 0L;
-        return lastSignDateDataMap.get(userID);
+        Map<Long, Long> temp = lastSignDateDataset.get();
+        if(temp.get(userID) == null) return 0L;
+        return temp.get(userID);
     }
     public int querySignCombo(long userID) {
-        if (signComboDataMap.get(userID) == null) return 0;
-        return signComboDataMap.get(userID);
+        Map<Long, Integer> temp = signComboDataSet.get();
+        if (temp.get(userID) == null) return 0;
+        return temp.get(userID);
     }
     public void setLastSignDate(long userID, long date) {
-        if (lastSignDateDataMap.containsKey(userID)) lastSignDateDataMap.replace(userID, date);
-        else lastSignDateDataMap.put(userID, date);
+        Map<Long,Long> temp = lastSignDateDataset.get();
+        if (temp.containsKey(userID)) temp.replace(userID, date);
+        else temp.put(userID, date);
+        lastSignDateDataset.set(temp);
     }
     public void setSignCombo(long userID, int count) {
-        if (signComboDataMap.containsKey(userID)) signComboDataMap.replace(userID, count);
-        else signComboDataMap.put(userID, count);
+        Map<Long,Integer> temp = signComboDataSet.get();
+        if (temp.containsKey(userID)) temp.replace(userID, count);
+        else temp.put(userID, count);
+        signComboDataSet.set(temp);
     }
 }

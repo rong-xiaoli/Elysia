@@ -118,7 +118,7 @@ public class DailySign extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-        logger.debug("DailySign reloading. ");
+        logger.debug("Saving data. ");
         DATA.saveData();
         logger.verbose("Data saved. ");
     }
