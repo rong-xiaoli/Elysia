@@ -27,7 +27,7 @@ public final class Elysia extends JavaPlugin {
     }
 
     /**
-     * @param $this$onLoad
+     * @param $this$onLoad This parameter is not used. 
      */
     @Override
     public void onLoad(@NotNull PluginComponentStorage $this$onLoad) {

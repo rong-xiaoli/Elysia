@@ -39,7 +39,7 @@ public class DailySignTimer {
         @Override
         public void run() {
             DailySign.INSTANCE.saveData();
-            LOGGER.verbose("Sign counter cleared. ");
+            LOGGER.verbose("Data saved. ");
         }
     }
 }

@@ -7,7 +7,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
 
 public class DataLoader {
     protected CopyOnWriteArrayList<PluginDataBase> DataList;
-    public static DataLoader INSTANCE = DataLoader.INSTANCE;
+    public static DataLoader INSTANCE = new DataLoader();
     public DataLoader() {
         this.DataList = new CopyOnWriteArrayList<>();
     }

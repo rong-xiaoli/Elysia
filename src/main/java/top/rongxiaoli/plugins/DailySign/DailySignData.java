@@ -54,35 +54,35 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
         LOGGER.debug("Data saved. ");
     }
     public long queryLastSignDate(long userID) {
-        Map<Long, Long> temp = lastSignDateDataset.get();
+        Map<Long, Long> temp = DailySignData.INSTANCE.lastSignDateDataset.get();
         temp.forEach((key, value) -> LOGGER.verbose(key + ": " + value));
         if(temp.get(userID) == null) return 0L;
         return temp.get(userID);
     }
     public int querySignCombo(long userID) {
-        Map<Long, Integer> temp = signComboDataSet.get();
+        Map<Long, Integer> temp = DailySignData.INSTANCE.signComboDataSet.get();
         temp.forEach((key, value) -> LOGGER.verbose(key + ": " + value));
         if (temp.get(userID) == null) return 0;
         return temp.get(userID);
     }
     public void setLastSignDate(long userID, long date) {
-        Map<Long,Long> temp = lastSignDateDataset.get();
+        Map<Long,Long> temp = DailySignData.INSTANCE.lastSignDateDataset.get();
         if (temp.containsKey(userID)) temp.replace(userID, date);
         else temp.put(userID, date);
-        lastSignDateDataset.set(temp);
+        DailySignData.INSTANCE.lastSignDateDataset.set(temp);
 
         LOGGER.verbose("lastSignDateDataset: ");
-        temp = lastSignDateDataset.get();
+        temp = DailySignData.INSTANCE.lastSignDateDataset.get();
         temp.forEach((key, value) -> LOGGER.verbose(key + ": " + value));
     }
     public void setSignCombo(long userID, int count) {
-        Map<Long,Integer> temp = signComboDataSet.get();
+        Map<Long,Integer> temp = DailySignData.INSTANCE.signComboDataSet.get();
         if (temp.containsKey(userID)) temp.replace(userID, count);
         else temp.put(userID, count);
-        signComboDataSet.set(temp);
+        DailySignData.INSTANCE.signComboDataSet.set(temp);
 
         LOGGER.verbose("signComboDataSet: ");
-        temp = signComboDataSet.get();
+        temp = DailySignData.INSTANCE.signComboDataSet.get();
         temp.forEach((key, value) -> LOGGER.verbose(key + ": " + value));
     }
 }
