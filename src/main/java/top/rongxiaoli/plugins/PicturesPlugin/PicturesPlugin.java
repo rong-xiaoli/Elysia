@@ -3,6 +3,7 @@ package top.rongxiaoli.plugins.PicturesPlugin;
 import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.IORuntimeException;
 import cn.hutool.core.util.ReUtil;
+import cn.hutool.http.HttpException;
 import cn.hutool.http.HttpUtil;
 import cn.hutool.json.JSONUtil;
 import net.mamoe.mirai.console.command.CommandContext;
@@ -138,6 +139,8 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
             } catch (IORuntimeException e) {
                 context.getSender().sendMessage("图片源请求失败。");
                 isPictAvailable = false;
+            } catch (HttpException e) {
+                context.getSender().sendMessage("图片可能已从Pixiv移除。");
             }
             logger.verbose(NAME, "Picture downloaded. ");
         } else {
