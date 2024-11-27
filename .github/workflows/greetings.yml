@@ -1,0 +1,27 @@
+name: Greetings to newcomers
+
+on: [pull_request_target, issues]
+
+jobs:
+  greeting:
+    runs-on: ubuntu-latest
+    permissions:
+      issues: write
+      pull-requests: write
+    steps:
+    - uses: actions/first-interaction@v1
+      with:
+        repo-token: ${{ secrets.GITHUB_TOKEN }}
+        issue-message: "Greetings new comers! Hope we can help you with your questions! 新人你好！希望我们能帮助你解答你的问题！"
+        pr-message: |
+          Greetings new comers! Thanks for helping us become better! 
+          To contributors: 
+          Please note that your edits are about to be reviewed, and the maintainers
+          are not available all the time, so it may cost days to pass code. 
+          Please be patient while your code is being reviewed! Thank you. 
+          
+          新人你好！感谢你能帮我们变得更好！
+          致开发者：
+          请注意你的代码将会被审计，并且维护者们并不是随时有空，因此可能需要耗费一些时日
+          去通过。
+          请耐心等待代码通过，谢谢！ 

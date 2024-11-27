@@ -1,6 +1,7 @@
 package top.rongxiaoli.backend;
 
 import net.mamoe.mirai.console.command.CommandManager;
+import top.rongxiaoli.plugins.DailySign.DailySign;
 import top.rongxiaoli.plugins.DailyFortune.DailyFortune;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;
 import top.rongxiaoli.plugins.Ping.Ping;
@@ -51,8 +52,13 @@ public class PluginLoader {
     private void addPlugins() {
         PluginList.add(PicturesPlugin.INSTANCE);
         INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
+
         PluginList.add(Ping.INSTANCE);
         INSTANCE.registerCommand(Ping.INSTANCE, false);
+      
+        PluginList.add(DailySign.INSTANCE);
+        INSTANCE.registerCommand(DailySign.INSTANCE, false);
+      
         PluginList.add(DailyFortune.INSTANCE);
         INSTANCE.registerCommand(DailyFortune.INSTANCE, false);
     }
