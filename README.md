@@ -1,5 +1,6 @@
 # Elysia
 ![WakaTime](https://wakatime.com/badge/github/rong-xiaoli/Elysia.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frong-xiaoli%2FElysia.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frong-xiaoli%2FElysia?ref=badge_shield)
 
 ---
 源自某个少女曾经的记忆。
@@ -37,3 +38,7 @@ LuckPerms在MC圈子里是一个非常热门的权限管理器，以简洁易懂
 - [ ] 今日运势
 - [ ] 抽奖
 - [ ] 财富榜
+
+Repo stats
+---
+![Alt](https://repobeats.axiom.co/api/embed/300e2c4e6d31f54014e037d44f45222a3b4e5382.svg "Repobeats analytics image")
