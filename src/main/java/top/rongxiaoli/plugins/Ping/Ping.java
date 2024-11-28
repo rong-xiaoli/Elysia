@@ -2,18 +2,16 @@ package top.rongxiaoli.plugins.Ping;
 
 import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.console.command.java.JSimpleCommand;
+import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase;
-import top.rongxiaoli.log.ElysiaLogger;
 
 public class Ping extends JSimpleCommand implements PluginBase {
-    private final ElysiaLogger logger;
+    private final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(Ping.class, "Elysia.Ping");
     public static final Ping INSTANCE = new Ping();
-    private static final String NAME = "Ping";
     public Ping() {
         super(Elysia.INSTANCE, "ping");
         setPrefixOptional(true);
-        logger = new ElysiaLogger();
     }
 
     @Handler
@@ -28,7 +26,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      * Load method. First time loading.
      */
     @Override
-    public void load() {logger.debug(NAME, "Command loaded. ");
+    public void load() {logger.debug("Command loaded. ");
     }
 
     /**
@@ -36,7 +34,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reload() {
-        logger.debug(NAME, "Reload complete. ");
+        logger.debug("Reload complete. ");
     }
 
     /**
@@ -44,7 +42,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void shutdown() {
-        logger.debug(NAME, "shutdown() invoked. Nothing special, pass. ");
+        logger.debug("shutdown() invoked. Nothing special, pass. ");
     }
 
     /**
@@ -52,7 +50,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-        logger.debug(NAME, "Nothing to store. ");
+        logger.debug("Nothing to store. ");
     }
 
     /**
@@ -60,6 +58,6 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reloadData() {
-        logger.debug(NAME, "Nothing to load. ");
+        logger.debug("Nothing to load. ");
     }
 }

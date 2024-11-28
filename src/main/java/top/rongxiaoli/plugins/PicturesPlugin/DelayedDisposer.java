@@ -2,8 +2,8 @@ package top.rongxiaoli.plugins.PicturesPlugin;
 
 import cn.hutool.core.thread.ThreadUtil;
 import net.mamoe.mirai.contact.User;
+import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
-import top.rongxiaoli.log.ElysiaLogger;
 
 import java.util.LinkedHashSet;
 import java.util.NoSuchElementException;
@@ -15,12 +15,11 @@ public class DelayedDisposer {
     public DelayedDisposer() {
         this.coolingQueue = new DelayQueue<>();
         this.userHashSet = new LinkedHashSet<>();
-        this.LOGGER = new ElysiaLogger();
         this.consumeThread = new Thread(consumer);
     }
     DelayConsumer consumer = new DelayConsumer(this);
     private boolean isLocked = false;
-    private final ElysiaLogger LOGGER;
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DelayedDisposer.class, "Elysia.PicturesPlugin.DelayedDisposer");
     private final Thread consumeThread;
     private final DelayQueue<CoolingUser> coolingQueue;
     private final LinkedHashSet<Long> userHashSet;
@@ -121,7 +120,7 @@ public class DelayedDisposer {
 
         private DelayedDisposer disposer;
         private boolean isConsuming = false;
-        private final ElysiaLogger LOGGER = new ElysiaLogger();
+        private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DelayConsumer.class, "Elysia.PicturesPlugin.DelayedDisposer.DelayConsumer");
         public DelayConsumer(DelayedDisposer disposer) {
             this.disposer = disposer;
         }
@@ -134,13 +133,13 @@ public class DelayedDisposer {
             do {
                 isConsuming = true;
                 if (!ThreadUtil.safeSleep(500)) {
-                    LOGGER.warn("DelayConsumer", "Sleep is interrupted. ");
+                    LOGGER.warning("Sleep is interrupted. ");
                     isConsuming = false;
                     return;
                 }
                 CoolingUser u;
                 while ((u = disposer.coolingQueue.poll()) != null) {
-                    LOGGER.verbose("DelayQueue", "Ejecting delayed element: " + u.user);
+                    LOGGER.verbose("Ejecting delayed element: " + u.user);
                     disposer.userHashSet.remove(u.user);
                 }
             } while (!isShuttingDown);

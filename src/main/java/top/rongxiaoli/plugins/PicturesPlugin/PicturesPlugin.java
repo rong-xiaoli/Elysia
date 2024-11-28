@@ -10,10 +10,10 @@ import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.console.command.java.JRawCommand;
 import net.mamoe.mirai.message.data.*;
 import net.mamoe.mirai.utils.ExternalResource;
+import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase;
-import top.rongxiaoli.log.ElysiaLogger;
 
 import java.io.File;
 import java.nio.file.Path;
@@ -23,12 +23,11 @@ import java.util.Objects;
  * Picture plugin.
  */
 public class PicturesPlugin extends JRawCommand implements PluginBase {
-    private final ElysiaLogger logger = new ElysiaLogger();
+    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(PicturesPlugin.class, "Elysia.PicturesPlugin");
     /**
      * The PicturePlugin static instance.
      */
     public static final PicturesPlugin INSTANCE = new PicturesPlugin();
-    private static final String NAME = "PicturesPlugin";
     private DelayedDisposer disposer;
     private static boolean isPluginRunning = false;
 
@@ -59,10 +58,10 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
             userID = Objects.requireNonNull(context.getSender().getUser()).getId();
             subjectID = Objects.requireNonNull(context.getSender().getSubject()).getId();
         } catch (NullPointerException e) {
-            logger.warn(NAME, "This command cannot be invoked from console! ");
+            LOGGER.warning("This command cannot be invoked from console! ");
         }
         if (userID == 0 || subjectID == 0) {
-            logger.warn(NAME, "This command cannot be invoked from console! ");
+            LOGGER.warning("This command cannot be invoked from console! ");
             return;
         }
         // Is DM?
@@ -71,7 +70,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         }
 
         // From user, log it:
-        logger.debug(NAME, "Command invoked by " + context.getSender().getUser().getId()
+        LOGGER.debug("Command invoked by " + context.getSender().getUser().getId()
                 + ", on context: " + (context.getSender().getSubject() == null ? " " : context.getSender().getSubject().getId()));
 
         // Try adding user into cooling queue.
@@ -83,10 +82,10 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
             long time = disposer.QueryCoolingTime(Objects.requireNonNull(context.getSender().getUser()));
             if (isDirectMessaging) {
                 context.getSender().sendMessage("请等待冷却：" + time + "秒");   // XXX: Use reply instead of directly say sth.
-                logger.verbose(NAME, "User is cooling. Done. ");
+                LOGGER.verbose("User is cooling. Done. ");
             } else {
                 context.getSender().sendMessage(new At(userID).plus("请等待冷却：" + time + "秒"));   // Todo: Use reply instead of directly say sth.
-                logger.verbose(NAME, "User is cooling. Done. ");
+                LOGGER.verbose("User is cooling. Done. ");
             }
             return;
         }
@@ -101,7 +100,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         // Check tags' safety.
         if (!messageTagSafetyCheck(args)) {
             context.getSender().sendMessage("已触发安全警告：请求已拦截。");
-            logger.warn(NAME, "Security alarm triggered. Request intercepted. ");
+            LOGGER.warning("Security alarm triggered. Request intercepted. ");
             messageOutputToLogAsWarn(args);
             return;
         }
@@ -121,8 +120,8 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         } catch (IORuntimeException e) {
             context.getSender().sendMessage("API请求失败。");
         }
-        logger.debug(NAME, "API HTTP GET successful. ");
-        logger.verbose(NAME, result);
+        LOGGER.debug("API HTTP GET successful. ");
+        LOGGER.verbose(result);
         PictureAPIDataStruct base = JSONUtil.toBean(result, PictureAPIDataStruct.class);
         PictureAPIDataStruct.Data data = base.getData().get(0);
         // Prepare file storage.
@@ -142,9 +141,9 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
             } catch (HttpException e) {
                 context.getSender().sendMessage("图片可能已从Pixiv移除。");
             }
-            logger.verbose(NAME, "Picture downloaded. ");
+            LOGGER.verbose("Picture downloaded. ");
         } else {
-            logger.verbose(NAME, "File exists. ");
+            LOGGER.verbose("File exists. ");
         }
 
         // Ready for file uploading and picture description.
@@ -155,7 +154,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
                 data.urls.regular;
         context.getSender().sendMessage(stbPictDescription);
         // Picture file.
-        logger.verbose(NAME, "Done processing: " + userID + " on context: " + subjectID);
+        LOGGER.verbose("Done processing: " + userID + " on context: " + subjectID);
         if (!isPictAvailable) {
             return;
         }
@@ -187,13 +186,13 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         return true;
     }
     private void messageOutputToLogAsWarn(MessageChain mc) {
-        logger.warn(NAME, "Message.contentToString: ");
-        logger.info(NAME, "MessageChain element start. ");
+        LOGGER.warning("Message.contentToString: ");
+        LOGGER.info("MessageChain element start. ");
         for (Message m :
                 mc) {
-            logger.warn(NAME, m.contentToString());
+            LOGGER.warning(m.contentToString());
         }
-        logger.info(NAME, "MessageChain element end. ");
+        LOGGER.info("MessageChain element end. ");
     }
 
     /**
@@ -201,18 +200,18 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void load() {
-        logger.debug(NAME, "Command loading. ");
-        logger.verbose(NAME, "Initializing Disposer. ");
+        LOGGER.debug("Command loading. ");
+        LOGGER.verbose("Initializing Disposer. ");
         this.disposer = new DelayedDisposer();
         disposer.startTiming();
-        logger.verbose(NAME, "Try creating directories. ");
+        LOGGER.verbose("Try creating directories. ");
         Path targetPath = new File(Elysia.GetDataPath().toFile(), "PictureCache").toPath();
-        logger.verbose(NAME, targetPath.toString());
+        LOGGER.verbose(targetPath.toString());
         if (!targetPath.toFile().mkdirs() && targetPath.toFile().exists()) {
-            logger.warn(NAME, "Directories could not be created. Could be either directory already exists or directory cannot be created. ");
+            LOGGER.warning("Directories could not be created. Could be either directory already exists or directory cannot be created. ");
         }
         isPluginRunning = true;
-        logger.debug(NAME, "Command loaded. ");
+        LOGGER.debug("Command loaded. ");
     }
 
     /**
@@ -220,9 +219,9 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void reload() {
-        logger.debug(NAME, "Reloading. ");
+        LOGGER.debug("Reloading. ");
         disposer = new DelayedDisposer();
-        logger.debug(NAME, "Reload complete. ");
+        LOGGER.debug("Reload complete. ");
     }
 
     /**
@@ -230,10 +229,10 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void shutdown() {
-        logger.debug(NAME, "shutdown() invoked.");
+        LOGGER.debug("shutdown() invoked.");
         disposer.Shutdown();
         isPluginRunning = false;
-        logger.debug(NAME, "Shut down.");
+        LOGGER.debug("Shut down.");
     }
 
     /**
@@ -241,7 +240,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-        logger.debug(NAME, "Nothing to store. ");
+        LOGGER.debug("Nothing to store. ");
     }
 
     /**
@@ -249,6 +248,6 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      */
     @Override
     public void reloadData() {
-        logger.debug(NAME, "Nothing to load. ");
+        LOGGER.debug("Nothing to load. ");
     }
 }
