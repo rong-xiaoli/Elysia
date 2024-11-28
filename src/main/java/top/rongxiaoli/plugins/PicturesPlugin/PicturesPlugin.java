@@ -206,7 +206,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         disposer.startTiming();
         LOGGER.verbose("Try creating directories. ");
         Path targetPath = new File(Elysia.GetDataPath().toFile(), "PictureCache").toPath();
-        LOGGER.verbose(targetPath.toString());
+        LOGGER.verbose("Cache directory: " + targetPath.getFileName());
         if (!targetPath.toFile().mkdirs() && targetPath.toFile().exists()) {
             LOGGER.warning("Directories could not be created. Could be either directory already exists or directory cannot be created. ");
         }
