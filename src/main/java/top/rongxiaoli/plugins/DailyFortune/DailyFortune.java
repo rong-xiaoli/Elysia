@@ -57,8 +57,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
                 mcb.append(image);
             }
         } catch (Exception e) {
-            LOGGER.warning("Got exception: " + e);
-            LOGGER.warning(e.getMessage());
+            LOGGER.warning("Error processing fortune command", e);
         }
         sender.sendMessage(mcb.build());
 
