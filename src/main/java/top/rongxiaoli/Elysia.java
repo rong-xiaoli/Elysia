@@ -6,14 +6,12 @@ import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
 import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.backend.DataLoader;
 import top.rongxiaoli.backend.PluginLoader;
-import top.rongxiaoli.log.ElysiaLogger;
 
 import java.nio.file.Path;
 
 
 public final class Elysia extends JavaPlugin {
     public static final Elysia INSTANCE = new Elysia();
-    public static ElysiaLogger logger;
     public static final PluginLoader LOADER = new PluginLoader();
     public static final DataLoader DATA = new DataLoader();
     public static boolean PluginRunning = false;
@@ -38,13 +36,10 @@ public final class Elysia extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().verbose("Plugin loading, packaged logger initialization started.");
-        logger = new ElysiaLogger();
-        ElysiaLogger.setLogger(getLogger());
-        logger.verbose("Elysia.onEnable", "Logger initialization complete. ");
+        getLogger().verbose("Plugin loading.");
         LOADER.load();
-        logger.verbose("Elysia.onEnable", "Plugin load complete. ");
-        logger.verbose("Elysia.onEnable", "Initialization complete. ");
+        getLogger().verbose("Plugin load complete. ");
+        getLogger().verbose("Initialization complete. ");
         Elysia.PluginRunning = true;
     }
 

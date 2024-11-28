@@ -5,9 +5,9 @@ import net.mamoe.mirai.console.command.java.JSimpleCommand;
 import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.utils.ExternalResource;
+import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase;
-import top.rongxiaoli.log.ElysiaLogger;
 
 import java.io.File;
 import java.security.SecureRandom;
@@ -18,8 +18,7 @@ import java.util.Random;
 
 public class DailyFortune extends JSimpleCommand implements PluginBase {
     public static final DailyFortune INSTANCE = new DailyFortune();
-    public static final String NAME = "DailyFortune";
-    private final ElysiaLogger logger = new ElysiaLogger();
+    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailyFortune.class, "Elysia.DailyFortune");
 
     public DailyFortune() {
         super(Elysia.INSTANCE, "fortune", "yunshi", "今日运势", "jrys");
@@ -32,7 +31,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
         try {
             senderID = Objects.requireNonNull(sender.getUser()).getId();
         } catch (NullPointerException e) {
-            logger.warn(NAME, "sender.getUser.getID is null. Maybe console is calling this command. Exiting. ");
+            LOGGER.warning("sender.getUser.getID is null. Maybe console is calling this command. Exiting. ");
             sender.sendMessage("你是0吗？");
             return;
         }
@@ -46,11 +45,11 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
             SecureRandom random = new SecureRandom();
             File directoryPathFile = new File(Elysia.GetDataPath().toFile(), "DailyFortunePicture");
             if (!directoryPathFile.mkdirs()) {
-                logger.info(NAME, "Directory creation failed. ");
+                LOGGER.info("Directory creation failed. ");
             }
             File[] targetFiles = directoryPathFile.listFiles(new UploadFileFilter("jpg", "png", "jpeg", "bmp"));
             if ((targetFiles != null ? targetFiles.length : 0) == 0) {
-                logger.info(NAME, "No pictures for random, pass. ");
+                LOGGER.info("No pictures for random, pass. ");
             }
             else {
                 File targetFile = targetFiles[random.nextInt(0,targetFiles.length)];
@@ -58,8 +57,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
                 mcb.append(image);
             }
         } catch (Exception e) {
-            logger.warn(NAME, "Got exception: ", e.toString());
-            logger.warn(NAME, e.getMessage());
+            LOGGER.warning("Error processing fortune command", e);
         }
         sender.sendMessage(mcb.build());
 
@@ -123,13 +121,13 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void load() {
-        logger.debug(NAME, "Command loading. ");
+        LOGGER.debug("Command loading. ");
         Calendar cal = new GregorianCalendar();
         if ((cal.get(Calendar.MONTH) == Calendar.OCTOBER && cal.get(Calendar.DAY_OF_MONTH) == 24) |
                 (cal.get(Calendar.DAY_OF_YEAR) == 256)) {
-            logger.verbose("Happy programmer's day! ");
+            LOGGER.verbose("Happy programmer's day! ");
         }
-        logger.debug(NAME, "Command loaded. ");
+        LOGGER.debug("Command loaded. ");
     }
 
     /**
@@ -137,7 +135,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reload() {
-        logger.debug(NAME, "Nothing to reload, pass. ");
+        LOGGER.debug("Nothing to reload, pass. ");
     }
 
     /**
@@ -145,7 +143,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void shutdown() {
-        logger.debug(NAME, "Nothing to do, pass. ");
+        LOGGER.debug("Nothing to do, pass. ");
     }
 
     /**
@@ -153,7 +151,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-        logger.debug(NAME, "Nothing to do, pass. ");
+        LOGGER.debug("Nothing to do, pass. ");
     }
 
     /**
@@ -161,6 +159,6 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reloadData() {
-        logger.debug(NAME, "Nothing to do, pass. ");
+        LOGGER.debug("Nothing to do, pass. ");
     }
 }
