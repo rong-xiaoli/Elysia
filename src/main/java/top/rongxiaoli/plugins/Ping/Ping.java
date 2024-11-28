@@ -4,7 +4,7 @@ import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.console.command.java.JSimpleCommand;
 import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.Elysia;
-import top.rongxiaoli.backend.PluginBase;
+import top.rongxiaoli.backend.PluginBase.PluginBase;
 
 public class Ping extends JSimpleCommand implements PluginBase {
     private final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(Ping.class, "Elysia.Ping");

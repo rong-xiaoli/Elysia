@@ -7,7 +7,7 @@ import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.utils.ExternalResource;
 import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.Elysia;
-import top.rongxiaoli.backend.PluginBase;
+import top.rongxiaoli.backend.PluginBase.PluginBase;
 
 import java.io.File;
 import java.security.SecureRandom;

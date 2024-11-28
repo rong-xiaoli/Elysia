@@ -1,4 +1,4 @@
-package top.rongxiaoli.backend;
+package top.rongxiaoli.backend.PluginBase;
 
 public interface PluginDataBase {
     // Todo: Complete plugin data.

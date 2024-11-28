@@ -1,4 +1,4 @@
-package top.rongxiaoli.backend;
+package top.rongxiaoli.backend.PluginBase;
 
 import net.mamoe.mirai.utils.MiraiLogger;
 
