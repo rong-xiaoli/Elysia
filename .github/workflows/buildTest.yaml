@@ -4,17 +4,13 @@ name: Plugin Build CI
 
 # Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "master" branch
+  # Triggers the workflow on push events with tags matching 'v*'
   push:
     tags:
       - 'v*'
-  # pull_request:
-  #   branches: [ "master" ]
-
   # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
 
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
   # This workflow contains a single job called "build"
   build:
@@ -39,15 +35,24 @@ jobs:
       # Build plugin.
       - name: Build JAR package.
         run: ./gradlew buildPlugin
+      # Generate checksum
+      - name: Generate checksum
+        run: |
+          cd ./build/mirai/
+          sha256sum ArisuBot-*.*.*.mirai2.jar > checksums.txt
       # Upload plugin.
       - name: Upload JAR package. 
         uses: actions/upload-artifact@v4
         with: 
-          name: Elysia-Plugin
-          path: ./build/mirai/Elysia-*.*.*.mirai2.jar
+          name: ArisuBot-Plugin
+          path: |
+            ./build/mirai/ArisuBot-*.*.*.mirai2.jar
+            ./build/mirai/checksums.txt
       - name: Create Release.
         uses: softprops/action-gh-release@v2
         with:
-          files: ./build/mirai/Elysia-*.*.*.mirai2.jar
+          files: |
+            ./build/mirai/ArisuBot-*.*.*.mirai2.jar
+            ./build/mirai/checksums.txt
           draft: true
           token: ${{ secrets.TOKEN }}

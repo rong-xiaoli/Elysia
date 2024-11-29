@@ -1,8 +1,11 @@
-package top.rongxiaoli.backend;
+package top.rongxiaoli.backend.PluginLoader;
 
 import net.mamoe.mirai.console.command.CommandManager;
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.backend.PluginBase.PluginBase;
+import top.rongxiaoli.plugins.DailySign.DailySign;
+import top.rongxiaoli.plugins.DailyFortune.DailyFortune;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;
+import top.rongxiaoli.plugins.Ping.Ping;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -25,7 +28,6 @@ public class PluginLoader {
                 PluginList) {
             e.load();
         }
-        registerCommand();
     }
 
 
@@ -33,20 +35,32 @@ public class PluginLoader {
      * Load method. Not first time loading.
      */
     public void reload() {
-
+        for (PluginBase e :
+                PluginList) {
+            e.reload();
+        }
     }
 
     /**
      * Unload method.
      */
     public void shutdown() {
-
+        for (PluginBase e :
+                PluginList) {
+            e.shutdown();
+        }
     }
     private void addPlugins() {
         PluginList.add(PicturesPlugin.INSTANCE);
-    }
-    private void registerCommand() {
-        this.INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
-        Elysia.logger.debug("PluginLoader.addPlugins", "Added PicturesPlugin. ");
+        INSTANCE.registerCommand(PicturesPlugin.INSTANCE, false);
+
+        PluginList.add(Ping.INSTANCE);
+        INSTANCE.registerCommand(Ping.INSTANCE, false);
+      
+        PluginList.add(DailySign.INSTANCE);
+        INSTANCE.registerCommand(DailySign.INSTANCE, false);
+      
+        PluginList.add(DailyFortune.INSTANCE);
+        INSTANCE.registerCommand(DailyFortune.INSTANCE, false);
     }
 }
