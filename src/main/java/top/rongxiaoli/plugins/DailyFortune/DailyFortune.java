@@ -44,8 +44,8 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
         try {
             SecureRandom random = new SecureRandom();
             File directoryPathFile = new File(ArisuBot.GetDataPath().toFile(), "DailyFortunePicture");
-            if (!directoryPathFile.mkdirs()) {
-                LOGGER.info("Directory creation failed. ");
+            if (!directoryPathFile.exists() && !directoryPathFile.mkdirs()) {
+                LOGGER.warning("Failed to create directory: " + directoryPathFile);
             }
             File[] targetFiles = directoryPathFile.listFiles(new UploadFileFilter("jpg", "png", "jpeg", "bmp"));
             if ((targetFiles != null ? targetFiles.length : 0) == 0) {
