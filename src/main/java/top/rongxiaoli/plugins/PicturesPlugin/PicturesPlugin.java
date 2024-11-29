@@ -110,7 +110,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         stbAPI.append("proxy=i.pixiv.re&");
         for (Message m :
                 args) {
-            stbAPI.append("tags=").append(m.contentToString()).append("&");
+            stbAPI.append("tag=").append(m.contentToString()).append("&");
         }
 
         // Safe. Request start.
