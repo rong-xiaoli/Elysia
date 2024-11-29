@@ -39,6 +39,16 @@ LuckPerms在MC圈子里是一个非常热门的权限管理器，以简洁易懂
 - [ ] 抽奖
 - [ ] 财富榜
 
+## 共同管理
+
+<!-- readme: collaborators -start -->
+<!-- readme: collaborators -end -->
+
+## 贡献者
+
+<!-- readme: contributors -start -->
+<!-- readme: contributors -end -->
+
 Repo stats
 ---
 ![Alt](https://repobeats.axiom.co/api/embed/300e2c4e6d31f54014e037d44f45222a3b4e5382.svg "Repobeats analytics image")
