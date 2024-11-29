@@ -1,12 +1,12 @@
 package top.rongxiaoli.backend.Commands;
 
-import net.mamoe.mirai.console.command.java.JCompositeCommand;
+import net.mamoe.mirai.console.command.java.JRawCommand;
 import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.Elysia;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
-public class ElysiaAbstractRawCommand extends JCompositeCommand implements PluginBase {
+public class ElysiaAbstractRawCommand extends JRawCommand implements PluginBase {
     private MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(ElysiaAbstractRawCommand.class, "Elysia.AbstractCompositeCommand");
     public ElysiaAbstractRawCommand(@NotNull String primaryName, @NotNull String[] secondaryNames) {
         super(Elysia.INSTANCE, primaryName, secondaryNames);
