@@ -1,6 +1,6 @@
 package top.rongxiaoli.backend.PluginLoader;
 
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginDataBase;
 import top.rongxiaoli.plugins.DailySign.DailySignData;
 
@@ -14,7 +14,7 @@ public class DataLoader {
     }
     private void addPlugins() {
         DataList.add(DailySignData.INSTANCE);
-        Elysia.INSTANCE.reloadPluginData(DailySignData.INSTANCE);
+        ArisuBot.INSTANCE.reloadPluginData(DailySignData.INSTANCE);
     }
     public void load() {
         for (PluginDataBase e :

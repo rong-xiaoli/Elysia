@@ -3,13 +3,13 @@ package top.rongxiaoli.plugins.DailySign;
 import net.mamoe.mirai.console.data.Value;
 import net.mamoe.mirai.console.data.java.JavaAutoSavePluginData;
 import net.mamoe.mirai.utils.MiraiLogger;
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginDataBase;
 
 import java.util.Map;
 public class DailySignData extends JavaAutoSavePluginData implements PluginDataBase {
     public static final DailySignData INSTANCE = new DailySignData();
-    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignData.class, "Elysia.DailySign.Data");
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignData.class, "ArisuBot.DailySign.Data");
     public DailySignData() {
         super("DailySignData");
     }
@@ -29,28 +29,28 @@ public class DailySignData extends JavaAutoSavePluginData implements PluginDataB
     @Override
     public void load() {
         LOGGER.verbose("Loading data. ");
-        Elysia.INSTANCE.reloadPluginData(INSTANCE);
+        ArisuBot.INSTANCE.reloadPluginData(INSTANCE);
         LOGGER.debug("Load complete. ");
     }
 
     @Override
     public void reload() {
         LOGGER.debug("Start reloading data. ");
-        Elysia.INSTANCE.reloadPluginData(INSTANCE);
+        ArisuBot.INSTANCE.reloadPluginData(INSTANCE);
         LOGGER.debug("Data reloading complete. ");
     }
 
     @Override
     public void shutdown() {
         LOGGER.debug("Start shutdown process. ");
-        Elysia.INSTANCE.savePluginData(INSTANCE);
+        ArisuBot.INSTANCE.savePluginData(INSTANCE);
         LOGGER.debug("Shutdown process complete. ");
     }
 
     @Override
     public void saveData() {
         LOGGER.debug("Saving data. ");
-        Elysia.INSTANCE.savePluginData(INSTANCE);
+        ArisuBot.INSTANCE.savePluginData(INSTANCE);
         LOGGER.debug("Data saved. ");
     }
     public long queryLastSignDate(long userID) {

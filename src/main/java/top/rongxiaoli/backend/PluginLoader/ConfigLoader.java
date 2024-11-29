@@ -1,6 +1,6 @@
 package top.rongxiaoli.backend.PluginLoader;
 
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.ArisuBot;
 
 /**
  * The loader of the plugin's data.

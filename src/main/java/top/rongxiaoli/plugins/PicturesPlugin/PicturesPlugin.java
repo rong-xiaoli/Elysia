@@ -12,7 +12,7 @@ import net.mamoe.mirai.message.data.*;
 import net.mamoe.mirai.utils.ExternalResource;
 import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
 import java.io.File;
@@ -23,7 +23,7 @@ import java.util.Objects;
  * Picture plugin.
  */
 public class PicturesPlugin extends JRawCommand implements PluginBase {
-    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(PicturesPlugin.class, "Elysia.PicturesPlugin");
+    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(PicturesPlugin.class, "ArisuBot.PicturesPlugin");
     /**
      * The PicturePlugin static instance.
      */
@@ -35,7 +35,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
      * Pictures from lolicon API.
      */
     public PicturesPlugin() {
-        super(Elysia.INSTANCE, "setu");
+        super(ArisuBot.INSTANCE, "setu");
         setUsage("[/]setu [keyword1 keyword2 keyword3 ...]");
         setDescription("涩图，使用Lolicon API，可指定关键词");
         setPrefixOptional(true);
@@ -125,7 +125,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         PictureAPIDataStruct base = JSONUtil.toBean(result, PictureAPIDataStruct.class);
         PictureAPIDataStruct.Data data = base.getData().get(0);
         // Prepare file storage.
-        Path targetPath = new File(Elysia.GetDataPath().toFile(), "PictureCache").toPath();
+        Path targetPath = new File(ArisuBot.GetDataPath().toFile(), "PictureCache").toPath();
 
         // Download file.
         String[] UrlSplit = data.urls.regular.split("/");
@@ -205,7 +205,7 @@ public class PicturesPlugin extends JRawCommand implements PluginBase {
         this.disposer = new DelayedDisposer();
         disposer.startTiming();
         LOGGER.verbose("Try creating directories. ");
-        Path targetPath = new File(Elysia.GetDataPath().toFile(), "PictureCache").toPath();
+        Path targetPath = new File(ArisuBot.GetDataPath().toFile(), "PictureCache").toPath();
         LOGGER.verbose("Cache directory: " + targetPath.getFileName());
         if (!targetPath.toFile().mkdirs() && targetPath.toFile().exists()) {
             LOGGER.warning("Directories could not be created. Could be either directory already exists or directory cannot be created. ");

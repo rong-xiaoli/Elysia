@@ -8,7 +8,7 @@ import java.util.Calendar;
 import java.util.Random;
 
 public class DailySignString {
-    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignString.class, "Elysia.DailySign.String");
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySignString.class, "ArisuBot.DailySign.String");
 
     /**
      * Get a random string.

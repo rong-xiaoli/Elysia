@@ -3,20 +3,20 @@ package top.rongxiaoli.plugins.Ping;
 import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.console.command.java.JSimpleCommand;
 import net.mamoe.mirai.utils.MiraiLogger;
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
 public class Ping extends JSimpleCommand implements PluginBase {
-    private final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(Ping.class, "Elysia.Ping");
+    private final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(Ping.class, "ArisuBot.Ping");
     public static final Ping INSTANCE = new Ping();
     public Ping() {
-        super(Elysia.INSTANCE, "ping");
+        super(ArisuBot.INSTANCE, "ping");
         setPrefixOptional(true);
     }
 
     @Handler
     public void run(CommandContext context) {
-        if (!Elysia.PluginRunning) {
+        if (!ArisuBot.PluginRunning) {
             return;
         }
         context.getSender().sendMessage("Pong! ");

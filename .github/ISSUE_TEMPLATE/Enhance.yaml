@@ -13,7 +13,7 @@ body:
       label: Enhancement source code 原来的源码
       description: The code which can be enhanced. 代码哪里可以改进
       placeholder: >-
-        https://github.com/rong-xiaoli/Elysia/blob/f41c0472cb81c0d8f71d0a4131e6c9e7d88fdfba/README.md?plain=1#L1
+        https://github.com/rong-xiaoli/ArisuBot/blob/f41c0472cb81c0d8f71d0a4131e6c9e7d88fdfba/README.md?plain=1#L1
     validations:
       required: true
   - type: textarea
@@ -30,7 +30,7 @@ body:
     attributes:
       label: Similarity check 相似度检查
       description: >-
-        可以在[问题(issues)](https://github.com/rong-xiaoli/Elysia/issues?q=is%3Aissue)里看一下有没有相似的问题，如果有的话可以在那个问题底下跟帖催更。
+        可以在[问题(issues)](https://github.com/rong-xiaoli/ArisuBot/issues?q=is%3Aissue)里看一下有没有相似的问题，如果有的话可以在那个问题底下跟帖催更。
       options:
         - label: >-
             I've done similarity search and this is a new issue.

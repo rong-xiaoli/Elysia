@@ -1,6 +1,6 @@
-# Elysia
-![WakaTime](https://wakatime.com/badge/github/rong-xiaoli/Elysia.svg)
-[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frong-xiaoli%2FElysia.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frong-xiaoli%2FElysia?ref=badge_shield)
+# ArisuBot
+![WakaTime](https://wakatime.com/badge/github/rong-xiaoli/ArisuBot.svg)
+[![FOSSA Status](https://app.fossa.com/api/projects/git%2Bgithub.com%2Frong-xiaoli%2FArisuBot.svg?type=shield)](https://app.fossa.com/projects/git%2Bgithub.com%2Frong-xiaoli%2FArisuBot?ref=badge_shield)
 
 ---
 源自某个少女曾经的记忆。
