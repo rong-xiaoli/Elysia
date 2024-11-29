@@ -4,4 +4,4 @@ pluginManagement {
         gradlePluginPortal()
     }
 }
-rootProject.name = "Elysia"
+rootProject.name = "ArisuBot"

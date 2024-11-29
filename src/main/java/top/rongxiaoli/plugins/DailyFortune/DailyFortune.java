@@ -6,7 +6,7 @@ import net.mamoe.mirai.message.data.Image;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.utils.ExternalResource;
 import net.mamoe.mirai.utils.MiraiLogger;
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
 import java.io.File;
@@ -18,10 +18,10 @@ import java.util.Random;
 
 public class DailyFortune extends JSimpleCommand implements PluginBase {
     public static final DailyFortune INSTANCE = new DailyFortune();
-    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailyFortune.class, "Elysia.DailyFortune");
+    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailyFortune.class, "ArisuBot.DailyFortune");
 
     public DailyFortune() {
-        super(Elysia.INSTANCE, "fortune", "yunshi", "今日运势", "jrys");
+        super(ArisuBot.INSTANCE, "fortune", "yunshi", "今日运势", "jrys");
         setDescription("今日运势，今天幸运吗？");
         setPrefixOptional(true);
     }
@@ -43,7 +43,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
                 .append(wishString);
         try {
             SecureRandom random = new SecureRandom();
-            File directoryPathFile = new File(Elysia.GetDataPath().toFile(), "DailyFortunePicture");
+            File directoryPathFile = new File(ArisuBot.GetDataPath().toFile(), "DailyFortunePicture");
             if (!directoryPathFile.mkdirs()) {
                 LOGGER.info("Directory creation failed. ");
             }

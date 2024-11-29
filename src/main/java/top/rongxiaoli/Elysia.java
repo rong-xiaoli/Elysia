@@ -10,15 +10,15 @@ import top.rongxiaoli.backend.PluginLoader.PluginLoader;
 import java.nio.file.Path;
 
 
-public final class Elysia extends JavaPlugin {
-    public static final Elysia INSTANCE = new Elysia();
+public final class ArisuBot extends JavaPlugin {
+    public static final ArisuBot INSTANCE = new ArisuBot();
     public static final PluginLoader LOADER = new PluginLoader();
     public static final DataLoader DATA = new DataLoader();
     public static boolean PluginRunning = false;
 
-    private Elysia() {
-        super(new JvmPluginDescriptionBuilder("top.rongxiaoli.elysia", "0.0.0")
-                .name("Elysia")
+    private ArisuBot() {
+        super(new JvmPluginDescriptionBuilder("top.rongxiaoli.ArisuBot", "0.0.0")
+                .name("ArisuBot")
                 .info("REBORN, even better. ")
                 .author("rong-xiaoli")
                 .build());
@@ -29,7 +29,7 @@ public final class Elysia extends JavaPlugin {
      */
     @Override
     public void onLoad(@NotNull PluginComponentStorage $this$onLoad) {
-        getLogger().debug("Loading Elysia plugin data...");
+        getLogger().debug("Loading ArisuBot plugin data...");
         DATA.load();
         getLogger().debug("Load complete. Waiting for enabling. ");
     }
@@ -40,7 +40,7 @@ public final class Elysia extends JavaPlugin {
         LOADER.load();
         getLogger().verbose("Plugin load complete. ");
         getLogger().verbose("Initialization complete. ");
-        Elysia.PluginRunning = true;
+        ArisuBot.PluginRunning = true;
     }
 
     @Override

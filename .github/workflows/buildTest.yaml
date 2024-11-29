@@ -43,11 +43,11 @@ jobs:
       - name: Upload JAR package. 
         uses: actions/upload-artifact@v4
         with: 
-          name: Elysia-Plugin
-          path: ./build/mirai/Elysia-*.*.*.mirai2.jar
+          name: ArisuBot-Plugin
+          path: ./build/mirai/ArisuBot-*.*.*.mirai2.jar
       - name: Create Release.
         uses: softprops/action-gh-release@v2
         with:
-          files: ./build/mirai/Elysia-*.*.*.mirai2.jar
+          files: ./build/mirai/ArisuBot-*.*.*.mirai2.jar
           draft: true
           token: ${{ secrets.TOKEN }}

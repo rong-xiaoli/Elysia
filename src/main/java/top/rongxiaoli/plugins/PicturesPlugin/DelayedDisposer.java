@@ -19,7 +19,7 @@ public class DelayedDisposer {
     }
     DelayConsumer consumer = new DelayConsumer(this);
     private boolean isLocked = false;
-    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DelayedDisposer.class, "Elysia.PicturesPlugin.DelayedDisposer");
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DelayedDisposer.class, "ArisuBot.PicturesPlugin.DelayedDisposer");
     private final Thread consumeThread;
     private final DelayQueue<CoolingUser> coolingQueue;
     private final LinkedHashSet<Long> userHashSet;
@@ -120,7 +120,7 @@ public class DelayedDisposer {
 
         private DelayedDisposer disposer;
         private boolean isConsuming = false;
-        private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DelayConsumer.class, "Elysia.PicturesPlugin.DelayedDisposer.DelayConsumer");
+        private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DelayConsumer.class, "ArisuBot.PicturesPlugin.DelayedDisposer.DelayConsumer");
         public DelayConsumer(DelayedDisposer disposer) {
             this.disposer = disposer;
         }

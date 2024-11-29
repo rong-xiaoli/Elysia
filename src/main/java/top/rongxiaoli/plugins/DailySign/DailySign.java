@@ -4,7 +4,7 @@ import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.console.command.java.JSimpleCommand;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.utils.MiraiLogger;
-import top.rongxiaoli.Elysia;
+import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
 import java.util.Calendar;
@@ -18,13 +18,13 @@ public class DailySign extends JSimpleCommand implements PluginBase {
     private static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     private static int signCount = 0;
     private static final DailySignData DATA = new DailySignData();
-    private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class, "Elysia.DailySign");
+    private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class, "ArisuBot.DailySign");
     public static final DailySign INSTANCE = new DailySign();
     public static void clearSignCount() {
         signCount = 0;
     }
     public DailySign() {
-        super(Elysia.INSTANCE, "sign", "qd");
+        super(ArisuBot.INSTANCE, "sign", "qd");
         setDescription("每日签到");
     }
     @Handler

@@ -30,7 +30,7 @@ body:
     attributes:
       label: Similarity check 相似度检查
       description: >-
-        可以在[问题(issues)](https://github.com/rong-xiaoli/Elysia/issues?q=is%3Aissue)里看一下有没有相似的问题，如果有的话可以在那个问题底下跟帖催更。
+        可以在[问题(issues)](https://github.com/rong-xiaoli/ArisuBot/issues?q=is%3Aissue)里看一下有没有相似的问题，如果有的话可以在那个问题底下跟帖催更。
       options:
         - label: >-
             I've done similarity search and this is a new issue.
