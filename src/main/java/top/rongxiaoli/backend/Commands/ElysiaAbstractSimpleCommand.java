@@ -1,0 +1,48 @@
+package top.rongxiaoli.backend.Commands;
+
+import net.mamoe.mirai.console.command.CommandOwner;
+import net.mamoe.mirai.console.command.java.JSimpleCommand;
+import net.mamoe.mirai.utils.MiraiLogger;
+import org.jetbrains.annotations.NotNull;
+import top.rongxiaoli.backend.PluginBase.PluginBase;
+
+public class ElysiaAbstractSimpleCommand extends JSimpleCommand implements PluginBase {
+    private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(ElysiaAbstractSimpleCommand.class, "Elysia.AbstractSimpleCommand");
+    public ElysiaAbstractSimpleCommand(@NotNull CommandOwner owner, @NotNull String primaryName, @NotNull String... secondaryNames) {
+        super(owner, primaryName, secondaryNames);
+    }
+
+    /**
+     * Load method. First time loading.
+     */
+    public void load() {
+    }
+
+    /**
+     * Reload method. Usually for resetting state.
+     */
+    public void reload() {
+
+    }
+
+    /**
+     * Shutdown method.
+     */
+    public void shutdown() {
+
+    }
+
+    /**
+     * Manually save the data.
+     */
+    public void saveData() {
+
+    }
+
+    /**
+     * Manually reload the data. Discard the changes in memory.
+     */
+    public void reloadData() {
+
+    }
+}

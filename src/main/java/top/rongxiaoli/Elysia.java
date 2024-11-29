@@ -4,8 +4,8 @@ import net.mamoe.mirai.console.extension.PluginComponentStorage;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
 import org.jetbrains.annotations.NotNull;
-import top.rongxiaoli.backend.DataLoader;
-import top.rongxiaoli.backend.PluginLoader;
+import top.rongxiaoli.backend.PluginLoader.DataLoader;
+import top.rongxiaoli.backend.PluginLoader.PluginLoader;
 
 import java.nio.file.Path;
 

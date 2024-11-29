@@ -1,6 +1,7 @@
-package top.rongxiaoli.backend;
+package top.rongxiaoli.backend.PluginLoader;
 
 import net.mamoe.mirai.console.command.CommandManager;
+import top.rongxiaoli.backend.PluginBase.PluginBase;
 import top.rongxiaoli.plugins.DailySign.DailySign;
 import top.rongxiaoli.plugins.DailyFortune.DailyFortune;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;

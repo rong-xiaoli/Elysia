@@ -1,4 +1,4 @@
-package top.rongxiaoli.backend;
+package top.rongxiaoli.backend.PluginLoader;
 
 import top.rongxiaoli.Elysia;
 
