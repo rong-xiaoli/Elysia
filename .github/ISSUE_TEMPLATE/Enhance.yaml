@@ -5,6 +5,7 @@ labels:
   - code/enhancement
 assignees:
   - rong-xiaoli
+projects: "rong-xiaoli/3"
 body:
   - type: textarea
     id: EnhancemetSource
