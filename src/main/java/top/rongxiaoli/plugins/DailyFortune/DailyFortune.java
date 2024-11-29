@@ -67,7 +67,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
         Calendar cal = new GregorianCalendar();
         int year, month, day;
         year = cal.get(Calendar.YEAR) * 10000;
-        month = cal.get(Calendar.MONTH) * 100;
+        month = (cal.get(Calendar.MONTH) + 1) * 100;
         day = cal.get(Calendar.DAY_OF_YEAR);
         Random rand;
         if (cal.get(Calendar.MONTH) == Calendar.APRIL && cal.get(Calendar.DAY_OF_MONTH) == 1) {
@@ -123,7 +123,7 @@ public class DailyFortune extends JSimpleCommand implements PluginBase {
     public void load() {
         LOGGER.debug("Command loading. ");
         Calendar cal = new GregorianCalendar();
-        if ((cal.get(Calendar.MONTH) == Calendar.OCTOBER && cal.get(Calendar.DAY_OF_MONTH) == 24) |
+        if ((cal.get(Calendar.MONTH) == Calendar.OCTOBER && cal.get(Calendar.DAY_OF_MONTH) == 24) ||
                 (cal.get(Calendar.DAY_OF_YEAR) == 256)) {
             LOGGER.verbose("Happy programmer's day! ");
         }
