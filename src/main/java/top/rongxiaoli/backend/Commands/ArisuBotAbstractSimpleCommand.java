@@ -6,7 +6,7 @@ import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
-public class ArisuBotAbstractSimpleCommand extends JSimpleCommand implements PluginBase {
+public abstract class ArisuBotAbstractSimpleCommand extends JSimpleCommand implements PluginBase {
     private final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(ArisuBotAbstractSimpleCommand.class, "ArisuBot.AbstractSimpleCommand");
     public ArisuBotAbstractSimpleCommand(@NotNull CommandOwner owner, @NotNull String primaryName, @NotNull String... secondaryNames) {
         super(owner, primaryName, secondaryNames);
