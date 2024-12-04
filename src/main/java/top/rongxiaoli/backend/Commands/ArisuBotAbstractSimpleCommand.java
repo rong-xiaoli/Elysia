@@ -45,4 +45,6 @@ public abstract class ArisuBotAbstractSimpleCommand extends JSimpleCommand imple
     public void reloadData() {
 
     }
+    @Handler
+    public abstract void onCommand();
 }
