@@ -6,7 +6,7 @@ import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
-public class ArisuBotAbstractRawCommand extends JRawCommand implements PluginBase {
+public abstract class ArisuBotAbstractRawCommand extends JRawCommand implements PluginBase {
     private MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(ArisuBotAbstractRawCommand.class, "ArisuBot.AbstractCompositeCommand");
     public ArisuBotAbstractRawCommand(@NotNull String primaryName, @NotNull String[] secondaryNames) {
         super(ArisuBot.INSTANCE, primaryName, secondaryNames);
