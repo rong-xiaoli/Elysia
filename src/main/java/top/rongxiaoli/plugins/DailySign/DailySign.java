@@ -5,7 +5,7 @@ import net.mamoe.mirai.console.command.java.JSimpleCommand;
 import net.mamoe.mirai.message.data.MessageChainBuilder;
 import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.ArisuBot;
-import top.rongxiaoli.backend.PluginBase.PluginBase;
+import top.rongxiaoli.backend.interfaces.PluginBase.PluginBase;
 
 import java.util.Calendar;
 import java.util.GregorianCalendar;
