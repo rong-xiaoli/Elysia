@@ -12,7 +12,7 @@ import java.util.concurrent.CopyOnWriteArrayList;
  */
 public class ConfigLoader {
     protected CopyOnWriteArrayList<PluginConfigBase> ConfigList;
-    public static DataLoader INSTANCE = new DataLoader();
+    public static ConfigLoader INSTANCE = new ConfigLoader();
     // Todo: Add config loader.
     public ConfigLoader() {
         this.ConfigList = new CopyOnWriteArrayList<>();
