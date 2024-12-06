@@ -1,11 +1,12 @@
 package top.rongxiaoli.backend.PluginLoader;
 
 import net.mamoe.mirai.console.command.CommandManager;
-import top.rongxiaoli.backend.PluginBase.PluginBase;
+import top.rongxiaoli.backend.interfaces.PluginBase.PluginBase;
 import top.rongxiaoli.plugins.DailySign.DailySign;
 import top.rongxiaoli.plugins.DailyFortune.DailyFortune;
 import top.rongxiaoli.plugins.PicturesPlugin.PicturesPlugin;
 import top.rongxiaoli.plugins.Ping.Ping;
+import top.rongxiaoli.plugins.PokeReact.PokeReact;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -62,5 +63,8 @@ public class PluginLoader {
       
         PluginList.add(DailyFortune.INSTANCE);
         INSTANCE.registerCommand(DailyFortune.INSTANCE, false);
+
+        PluginList.add(PokeReact.INSTANCE);
+        INSTANCE.registerCommand(PokeReact.INSTANCE, false);
     }
 }

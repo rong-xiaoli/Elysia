@@ -4,7 +4,7 @@ import net.mamoe.mirai.console.data.Value;
 import net.mamoe.mirai.console.data.java.JavaAutoSavePluginData;
 import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.ArisuBot;
-import top.rongxiaoli.backend.PluginBase.PluginDataBase;
+import top.rongxiaoli.backend.interfaces.PluginBase.PluginDataBase;
 
 import java.util.Map;
 public class DailySignData extends JavaAutoSavePluginData implements PluginDataBase {
