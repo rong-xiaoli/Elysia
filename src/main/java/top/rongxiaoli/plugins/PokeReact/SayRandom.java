@@ -1,4 +1,4 @@
-package top.rongxiaoli.plugins.PokeReact.backend;
+package top.rongxiaoli.plugins.PokeReact;
 
 import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.utils.MiraiLogger;

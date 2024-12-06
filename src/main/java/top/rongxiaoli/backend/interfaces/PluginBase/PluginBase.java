@@ -1,8 +1,9 @@
 package top.rongxiaoli.backend.interfaces.PluginBase;
 
+import net.mamoe.mirai.console.command.Command;
 import net.mamoe.mirai.utils.MiraiLogger;
 
-public interface PluginBase {
+public interface PluginBase extends Command {
     PluginBase INSTANCE = null;
     PluginConfigBase CONFIG_BASE = null;
     PluginDataBase DATA_BASE = null;

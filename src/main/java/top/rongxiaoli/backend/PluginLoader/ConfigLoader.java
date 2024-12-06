@@ -1,8 +1,8 @@
 package top.rongxiaoli.backend.PluginLoader;
 
 import top.rongxiaoli.ArisuBot;
-import top.rongxiaoli.backend.interfaces.PluginBase.PluginDataBase;
-import top.rongxiaoli.plugins.DailySign.DailySignData;
+import top.rongxiaoli.backend.interfaces.PluginBase.PluginConfigBase;
+import top.rongxiaoli.plugins.PokeReact.backend.PokeReactTextConfig;
 
 import java.util.concurrent.CopyOnWriteArrayList;
 
@@ -11,36 +11,36 @@ import java.util.concurrent.CopyOnWriteArrayList;
  * Detailed definitions in PluginConfigBase.java.
  */
 public class ConfigLoader {
-    protected CopyOnWriteArrayList<PluginDataBase> ConfigList;
+    protected CopyOnWriteArrayList<PluginConfigBase> ConfigList;
     public static DataLoader INSTANCE = new DataLoader();
     // Todo: Add config loader.
     public ConfigLoader() {
         this.ConfigList = new CopyOnWriteArrayList<>();
     }
     private void addPlugins() {
-        ConfigList.add(DailySignData.INSTANCE);
-        ArisuBot.INSTANCE.reloadPluginData(DailySignData.INSTANCE);
+        ConfigList.add(PokeReactTextConfig.INSTANCE);
+        ArisuBot.INSTANCE.reloadPluginConfig(PokeReactTextConfig.INSTANCE);
     }
     public void load() {
-        for (PluginDataBase e :
+        for (PluginConfigBase e :
                 ConfigList) {
             e.load();
         }
     }
     public void reload() {
-        for (PluginDataBase e :
+        for (PluginConfigBase e :
                 ConfigList) {
             e.reload();
         }
     }
     public void shutdown() {
-        for (PluginDataBase e :
+        for (PluginConfigBase e :
                 ConfigList) {
             e.shutdown();
         }
     }
     public void saveData() {
-        for (PluginDataBase e :
+        for (PluginConfigBase e :
                 ConfigList) {
             e.saveData();
 
