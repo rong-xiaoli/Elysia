@@ -4,6 +4,7 @@ import net.mamoe.mirai.console.command.CommandContext;
 import net.mamoe.mirai.event.events.NudgeEvent;
 import net.mamoe.mirai.message.action.BotNudge;
 import net.mamoe.mirai.message.action.Nudge;
+import net.mamoe.mirai.message.action.UserNudge;
 import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.plugins.PokeReact.backend.PokeReactTextConfig;
 
@@ -26,6 +27,12 @@ public class PokeBack {
         String messageString = getRandomString();
         LOGGER.verbose(messageString);
         context.getSender().sendMessage(messageString);
-        context.getSender().getUser().nudge();
+        Objects.requireNonNull(context.getSender().getUser()).nudge().sendTo(Objects.requireNonNull(context.getSender().getSubject()));
+    }
+    public void React(NudgeEvent event) {
+        String messageString = getRandomString();
+        LOGGER.verbose(messageString);
+        event.getSubject().sendMessage(messageString);
+        Objects.requireNonNull(event.getFrom()).nudge().sendTo(event.getSubject());
     }
 }

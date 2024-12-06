@@ -6,6 +6,7 @@ import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.interfaces.PluginBase.PluginConfigBase;
 
+import java.util.HashSet;
 import java.util.Set;
 
 public class PokeReactTextConfig extends JavaAutoSavePluginConfig implements PluginConfigBase {
@@ -17,7 +18,15 @@ public class PokeReactTextConfig extends JavaAutoSavePluginConfig implements Plu
     public Value<Set<String>> ValuePokeBackText = typedValue("PokeBackText",
             createKType(Set.class,
                     createKType(String.class)
-            )
+            ),
+            new HashSet<String>() {
+                {
+                    add("干什么！");
+                    add("痛痛痛，别戳了");
+                    add("就你会戳吗？");
+                    add("戳你！");
+                }
+            }
     );
 
     @Override
@@ -37,7 +46,7 @@ public class PokeReactTextConfig extends JavaAutoSavePluginConfig implements Plu
     @Override
     public void shutdown() {
         LOGGER.debug("Start shutdown process. ");
-        ArisuBot.INSTANCE.savePluginData(INSTANCE);
+        ArisuBot.INSTANCE.savePluginConfig(INSTANCE);
         LOGGER.debug("Shutdown process complete. ");
     }
 

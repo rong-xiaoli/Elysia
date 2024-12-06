@@ -3,7 +3,9 @@ package top.rongxiaoli;
 import net.mamoe.mirai.console.extension.PluginComponentStorage;
 import net.mamoe.mirai.console.plugin.jvm.JavaPlugin;
 import net.mamoe.mirai.console.plugin.jvm.JvmPluginDescriptionBuilder;
+import net.mamoe.mirai.event.GlobalEventChannel;
 import org.jetbrains.annotations.NotNull;
+import top.rongxiaoli.backend.EventListener;
 import top.rongxiaoli.backend.PluginLoader.ConfigLoader;
 import top.rongxiaoli.backend.PluginLoader.DataLoader;
 import top.rongxiaoli.backend.PluginLoader.PluginLoader;
@@ -40,10 +42,12 @@ public final class ArisuBot extends JavaPlugin {
 
     @Override
     public void onEnable() {
-        getLogger().verbose("Plugin loading.");
+        getLogger().debug("Plugin loading.");
         LOADER.load();
         getLogger().verbose("Plugin load complete. ");
-        getLogger().verbose("Initialization complete. ");
+        getLogger().verbose("Registering listener host. ");
+        GlobalEventChannel.INSTANCE.registerListenerHost(new EventListener());
+        getLogger().debug("Initialization complete. ");
         ArisuBot.PluginRunning = true;
     }
 
