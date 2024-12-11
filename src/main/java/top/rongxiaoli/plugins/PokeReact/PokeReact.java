@@ -30,7 +30,7 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
         int branch;
         SecureRandom random = new SecureRandom();
         random.setSeed(random.generateSeed(8));
-        branch = random.nextInt(1,4);
+        branch = random.nextInt(1,2);
         LOGGER.verbose(String.valueOf(branch));
         switch (branch) {
             default:
@@ -43,16 +43,13 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
                 SayRandom s = new SayRandom();
                 s.React(context);
                 break;
-            case 3:
-            case 4:
-                break;
         }
     }
     public void onNudgeEvent(NudgeEvent event) {
         int branch;
         SecureRandom random = new SecureRandom();
         random.setSeed(random.generateSeed(8));
-        branch = random.nextInt(1,4);
+        branch = random.nextInt(1,2);
         LOGGER.verbose(String.valueOf(branch));
         switch (branch) {
             default:
@@ -64,9 +61,6 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
             case 2:
                 SayRandom s = new SayRandom();
                 s.React(event);
-                break;
-            case 3:
-            case 4:
                 break;
         }
     }
