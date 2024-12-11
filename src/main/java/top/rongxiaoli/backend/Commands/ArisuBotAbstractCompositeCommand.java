@@ -4,7 +4,7 @@ import net.mamoe.mirai.console.command.java.JCompositeCommand;
 import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.ArisuBot;
-import top.rongxiaoli.backend.PluginBase.PluginBase;
+import top.rongxiaoli.backend.interfaces.PluginBase.PluginBase;
 
 public abstract class ArisuBotAbstractCompositeCommand extends JCompositeCommand implements PluginBase {
     private MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(ArisuBotAbstractCompositeCommand.class, "ArisuBot.AbstractCompositeCommand");

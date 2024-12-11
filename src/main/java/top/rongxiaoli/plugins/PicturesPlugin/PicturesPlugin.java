@@ -13,7 +13,7 @@ import net.mamoe.mirai.utils.ExternalResource;
 import net.mamoe.mirai.utils.MiraiLogger;
 import org.jetbrains.annotations.NotNull;
 import top.rongxiaoli.ArisuBot;
-import top.rongxiaoli.backend.PluginBase.PluginBase;
+import top.rongxiaoli.backend.interfaces.PluginBase.PluginBase;
 
 import java.io.File;
 import java.nio.file.Path;

@@ -1,7 +1,7 @@
 package top.rongxiaoli.backend.PluginLoader;
 
 import top.rongxiaoli.ArisuBot;
-import top.rongxiaoli.backend.PluginBase.PluginDataBase;
+import top.rongxiaoli.backend.interfaces.PluginBase.PluginDataBase;
 import top.rongxiaoli.plugins.DailySign.DailySignData;
 
 import java.util.concurrent.CopyOnWriteArrayList;
