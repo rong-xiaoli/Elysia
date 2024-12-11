@@ -40,7 +40,8 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
                 p.React(context);
                 break;
             case 2:
-                SayRandom.React(context);
+                SayRandom s = new SayRandom();
+                s.React(context);
                 break;
             case 3:
             case 4:
@@ -61,7 +62,8 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
                 p.React(event);
                 break;
             case 2:
-                SayRandom.React(event);
+                SayRandom s = new SayRandom();
+                s.React(event);
                 break;
             case 3:
             case 4:
