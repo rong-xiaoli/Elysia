@@ -18,7 +18,7 @@ public class DailySign extends JSimpleCommand implements PluginBase {
     private static final ScheduledExecutorService executorService = Executors.newScheduledThreadPool(4);
     private static int signCount = 0;
     private static final DailySignData DATA = new DailySignData();
-    private static final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(DailySign.class, "ArisuBot.DailySign");
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(DailySign.class, "ArisuBot.DailySign");
     public static final DailySign INSTANCE = new DailySign();
     public static void clearSignCount() {
         signCount = 0;
@@ -41,8 +41,8 @@ public class DailySign extends JSimpleCommand implements PluginBase {
         lastSign.setTimeInMillis(lastSignMillis);
         int signCombo = DATA.querySignCombo(userID);
         GregorianCalendar gCalendar = ((GregorianCalendar) Calendar.getInstance());
-        logger.verbose(String.valueOf(gCalendar.get(Calendar.DAY_OF_YEAR)));
-        logger.verbose(String.valueOf(lastSign.get(Calendar.DAY_OF_YEAR)));
+        LOGGER.verbose(String.valueOf(gCalendar.get(Calendar.DAY_OF_YEAR)));
+        LOGGER.verbose(String.valueOf(lastSign.get(Calendar.DAY_OF_YEAR)));
         if (gCalendar.get(Calendar.DAY_OF_YEAR) == lastSign.get(Calendar.DAY_OF_YEAR)) {
             mainBuilder.append("你已经签过到了哦~\n");
             mainBuilder.append(DailySignString.GetRandomString());
@@ -68,10 +68,10 @@ public class DailySign extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void load() {
-        logger.debug("DailySign loading. ");
+        LOGGER.debug("DailySign loading. ");
         DATA.load();
-        logger.verbose("Data load complete. ");
-        logger.verbose("No config load needed. ");
+        LOGGER.verbose("Data load complete. ");
+        LOGGER.verbose("No config load needed. ");
         executorService.scheduleAtFixedRate(
                 new DailySignTimer.SignCountTimer(),
                 getMilliSecondsToNextDay12AM(),
@@ -84,8 +84,8 @@ public class DailySign extends JSimpleCommand implements PluginBase {
                 5,
                 TimeUnit.MINUTES
         );
-        logger.verbose("The two scheduler started. ");
-        logger.debug("DailySign loaded. ");
+        LOGGER.verbose("The two scheduler started. ");
+        LOGGER.debug("DailySign loaded. ");
     }
 
     /**
@@ -93,11 +93,11 @@ public class DailySign extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reload() {
-        logger.debug("DailySign reloading. ");
+        LOGGER.debug("DailySign reloading. ");
         DATA.reload();
-        logger.verbose("Data load complete. ");
-        logger.verbose("No config reload needed. ");
-        logger.debug("DailySign reloaded. ");
+        LOGGER.verbose("Data load complete. ");
+        LOGGER.verbose("No config reload needed. ");
+        LOGGER.debug("DailySign reloaded. ");
     }
 
     /**
@@ -105,12 +105,12 @@ public class DailySign extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void shutdown() {
-        logger.debug("DailySign shutting down. ");
+        LOGGER.debug("DailySign shutting down. ");
         DATA.shutdown();
-        logger.verbose("Data shutdown complete. ");
-        logger.verbose("No config shutdown needed. ");
+        LOGGER.verbose("Data shutdown complete. ");
+        LOGGER.verbose("No config shutdown needed. ");
         executorService.shutdown();
-        logger.debug("DailySign shut down. ");
+        LOGGER.debug("DailySign shut down. ");
     }
 
     /**
@@ -118,9 +118,9 @@ public class DailySign extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-        logger.debug("Saving data. ");
+        LOGGER.debug("Saving data. ");
         DATA.saveData();
-        logger.verbose("Data saved. ");
+        LOGGER.verbose("Data saved. ");
     }
 
     /**
@@ -128,11 +128,11 @@ public class DailySign extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reloadData() {
-        logger.debug("DailySign data reloading. ");
+        LOGGER.debug("DailySign data reloading. ");
         DATA.reload();
-        logger.verbose("Data reload complete. ");
-        logger.verbose("No config needed. ");
-        logger.debug("DailySign reloaded. ");
+        LOGGER.verbose("Data reload complete. ");
+        LOGGER.verbose("No config needed. ");
+        LOGGER.debug("DailySign reloaded. ");
     }
     private boolean isConsoleCalling(CommandContext context) {
         long userID = 0, subjectID = 0;
@@ -141,11 +141,11 @@ public class DailySign extends JSimpleCommand implements PluginBase {
             userID = Objects.requireNonNull(context.getSender().getUser()).getId();
             subjectID = Objects.requireNonNull(context.getSender().getSubject()).getId();
         } catch (NullPointerException e) {
-            logger.warning("This command cannot be invoked from console! ");
+            LOGGER.warning("This command cannot be invoked from console! ");
             return true;
         }
         if (userID == 0 || subjectID == 0) {
-            logger.warning("This command cannot be invoked from console! ");
+            LOGGER.warning("This command cannot be invoked from console! ");
             return true;
         }
         return false;
