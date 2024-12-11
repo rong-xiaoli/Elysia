@@ -36,8 +36,12 @@ public class PokeReactTextConfig extends JavaAutoSavePluginConfig implements Plu
                 {
                     add("QwQ");
                     add("awa");
-                    add("就你会戳吗？");
-                    add("戳你！");
+                    add("-ω-");
+                    add("oxO");
+                    add("OvO");
+                    add("你把我戳疼了(*。>Д<)o゜");
+                    add("再戳我要哭了o(TヘTo)");
+                    add("别戳了别戳了`(*>﹏<*)′");
                 }
             }
     );

@@ -25,13 +25,11 @@ public class PokeBack {
     }
     public void React(CommandContext context) {
         String messageString = getRandomString();
-        LOGGER.verbose(messageString);
         context.getSender().sendMessage(messageString);
         Objects.requireNonNull(context.getSender().getUser()).nudge().sendTo(Objects.requireNonNull(context.getSender().getSubject()));
     }
     public void React(NudgeEvent event) {
         String messageString = getRandomString();
-        LOGGER.verbose(messageString);
         event.getSubject().sendMessage(messageString);
         Objects.requireNonNull(event.getFrom()).nudge().sendTo(event.getSubject());
     }

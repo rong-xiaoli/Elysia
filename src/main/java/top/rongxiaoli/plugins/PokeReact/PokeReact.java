@@ -20,7 +20,6 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
     @Override
     public void load() {
         LOGGER.debug("PokeReact loading. ");
-        PokeReactTextConfig.INSTANCE.load();
         LOGGER.debug("PokeReact loaded. ");
     }
     @Handler
@@ -46,6 +45,7 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
         }
     }
     public void onNudgeEvent(NudgeEvent event) {
+        if (event.getTarget().getId() != event.getBot().getId()) return;
         int branch;
         SecureRandom random = new SecureRandom();
         random.setSeed(random.generateSeed(8));
@@ -92,7 +92,6 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
     public void shutdown() {
         LOGGER.debug("PokeReact shutting down. ");
         LOGGER.verbose("Nothing stored, pass. ");
-        PokeReactTextConfig.INSTANCE.shutdown();
         LOGGER.debug("PokeReact shut down. ");
     }
 

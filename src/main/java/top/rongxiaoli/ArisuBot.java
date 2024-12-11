@@ -54,6 +54,10 @@ public final class ArisuBot extends JavaPlugin {
     @Override
     public void onDisable() {
         getLogger().debug("Start disabling process. ");
+        DATA.shutdown();
+        getLogger().debug("Data saved. ");
+        CONFIG.shutdown();
+        getLogger().debug("Config saved. ");
         LOADER.shutdown();
         getLogger().debug("Shutdown complete. ");
     }
