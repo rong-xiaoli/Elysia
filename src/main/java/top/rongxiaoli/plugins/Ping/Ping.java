@@ -7,7 +7,7 @@ import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.PluginBase.PluginBase;
 
 public class Ping extends JSimpleCommand implements PluginBase {
-    private final MiraiLogger logger = MiraiLogger.Factory.INSTANCE.create(Ping.class, "ArisuBot.Ping");
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(Ping.class, "ArisuBot.Ping");
     public static final Ping INSTANCE = new Ping();
     public Ping() {
         super(ArisuBot.INSTANCE, "ping");
@@ -26,7 +26,8 @@ public class Ping extends JSimpleCommand implements PluginBase {
      * Load method. First time loading.
      */
     @Override
-    public void load() {logger.debug("Command loaded. ");
+    public void load() {
+        LOGGER.debug("Command loaded. ");
     }
 
     /**
@@ -34,7 +35,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reload() {
-        logger.debug("Reload complete. ");
+        LOGGER.debug("Reload complete. ");
     }
 
     /**
@@ -42,7 +43,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void shutdown() {
-        logger.debug("shutdown() invoked. Nothing special, pass. ");
+        LOGGER.debug("shutdown() invoked. Nothing special, pass. ");
     }
 
     /**
@@ -50,7 +51,7 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void saveData() {
-        logger.debug("Nothing to store. ");
+        LOGGER.debug("Nothing to store. ");
     }
 
     /**
@@ -58,6 +59,6 @@ public class Ping extends JSimpleCommand implements PluginBase {
      */
     @Override
     public void reloadData() {
-        logger.debug("Nothing to load. ");
+        LOGGER.debug("Nothing to load. ");
     }
 }
