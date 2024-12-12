@@ -23,7 +23,6 @@ public class PokeReact extends ArisuBotAbstractSimpleCommand {
         LOGGER.debug("PokeReact loaded. ");
     }
     @Handler
-    @Override
     public void onCommand(CommandContext context) {
         if (isConsoleCalling(context)) return;
         int branch;
