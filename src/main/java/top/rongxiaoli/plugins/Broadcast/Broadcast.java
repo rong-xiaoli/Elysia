@@ -1,10 +1,20 @@
 package top.rongxiaoli.plugins.Broadcast;
 
 import net.mamoe.mirai.console.command.CommandContext;
+import net.mamoe.mirai.message.data.ForwardMessageBuilder;
+import net.mamoe.mirai.message.data.MessageChain;
+import net.mamoe.mirai.message.data.MessageChainBuilder;
+import net.mamoe.mirai.message.data.SingleMessage;
+import net.mamoe.mirai.utils.MiraiLogger;
 import top.rongxiaoli.ArisuBot;
 import top.rongxiaoli.backend.Commands.ArisuBotAbstractSimpleCommand;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class Broadcast extends ArisuBotAbstractSimpleCommand {
+    private static final MiraiLogger LOGGER = MiraiLogger.Factory.INSTANCE.create(Broadcast.class, "ArisuBot.Broadcast");
+    public static Broadcast INSTANCE = new Broadcast();
     public Broadcast() {
         super(ArisuBot.INSTANCE, "broadcast", "广播");
         setDescription("向所有人广播消息，请注意一定要配合LuckPerms进行权限管理，该功能可能会造成滥用！");
@@ -17,6 +27,15 @@ public class Broadcast extends ArisuBotAbstractSimpleCommand {
             context.getSender().sendMessage("正在广播，请稍后再试");
             return;
         }
-        StringBuilder builder = new StringBuilder();
+        if (args.length == 0) {
+            context.getSender().sendMessage("广播内容为空，请重新发送内容");
+            return;
+        }
+        if (context.getSender().getSubject() == null) {
+            LOGGER.warning("Command sender is null. ");
+            return;
+        }
+        ForwardMessageBuilder fmb = new ForwardMessageBuilder(context.getSender().getSubject());
+
     }
 }
