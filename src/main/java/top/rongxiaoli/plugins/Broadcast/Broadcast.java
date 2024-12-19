@@ -35,7 +35,16 @@ public class Broadcast extends ArisuBotAbstractSimpleCommand {
             LOGGER.warning("Command sender is null. ");
             return;
         }
-        ForwardMessageBuilder fmb = new ForwardMessageBuilder(context.getSender().getSubject());
-
+        MessageChainBuilder mcb = new MessageChainBuilder();
+        List<SingleMessage> source = context.getOriginalMessage().subList(0,context.getOriginalMessage().size() - 1);
+        source.remove(0);
+        SingleMessage firstMessage = source.get(0);
+        mcb.append(firstMessage.contentToString());
+        source.remove(0);
+        for (SingleMessage message :
+                source) {
+            mcb.append(message);
+        }
+        context.getSender().sendMessage(mcb.build());
     }
 }
